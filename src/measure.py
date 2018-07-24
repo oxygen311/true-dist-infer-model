@@ -5,47 +5,41 @@ import json
 from datetime import datetime
 from src.estimators import get_d_from_cycles
 import random
-
-N_MIN = 2000
-N_MAX = 4000
-
-TRIES = 200
+import multiprocessing as mp
 
 X_MIN = 0
 X_MAX = 3
 X_STEP = 0.01
+xs = np.arange(X_MIN, X_MAX, X_STEP)
 
 
-def measure_c(xs):
+def run(n, tries, workers):
     ys = [[] for _ in xs]
-
-    for i in range(TRIES):
-        N = random.randint(N_MIN, N_MAX)
-        print(i, "of", TRIES, "N =", N, datetime.now())
-        g = DnkGraph(N)
+    for i in range(int(tries / workers)):
+        print(i, "of", int(tries / workers), "N =", n, datetime.now())
+        g = DnkGraph(n)
         breaks = 0
 
         for x_index, x in enumerate(xs):
-            cycle_breaks = 0
-            while breaks <= int(round(x * N / 2)):
-                before_break_d = get_d_from_cycles(g.count_cycles())
+            while breaks <= int(round(x * n / 2)):
                 g.do_k_break()
                 g.check_correctness()
-                after_break_d = get_d_from_cycles(g.count_cycles())
                 breaks += 1
-                if after_break_d <= before_break_d:
-                    cycle_breaks += 1
-            if cycle_breaks != 0:
-                print(x, cycle_breaks)
-            ys[x_index].append([N, breaks, cycle_breaks])
+            ys[x_index].append([n, breaks, dict(g.count_cycles())])
     return ys
 
 
-if __name__ == "__main__":
-    xs = np.arange(X_MIN, X_MAX, X_STEP)
-    # DIRICHLET_INPUT_FILE = "dirichlet_2000.txt"
-    # dir = json.loads(open(DIRICHLET_INPUT_FILE, 'r').read())
+def measure_c(n=1000, tries=20, workers=4):
+    pool = mp.Pool()
+    results = [pool.apply_async(run, [n, tries, workers]) for _ in range(workers)]
 
-    measured_c = measure_c(xs)
-    # open("data/classic_data_random_round_" + str(TRIES) + ".txt", 'w').write(json.dumps(measured_c))
-    open("data/dirichlet_breakdown_of_a_cycle" + str(TRIES) + ".txt", 'w').write(json.dumps(measured_c))
+    return [x for r in results for x in r.get()]
+
+
+if __name__ == "__main__":
+    TRIES = 200
+    WORKERS = 4
+
+    for n in range(100, 2600, 100):
+        measured_c = measure_c(n, TRIES, WORKERS)
+        open("data/diff_ns/dirichlet_%d_%d.txt" % (n, TRIES), 'w').write(json.dumps(measured_c))

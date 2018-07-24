@@ -20,21 +20,24 @@ slite_dirichlet_file = "data/dirichlet_data_randomN_20.txt"
 cycles_breakdowns_lite_file = "data/dirichlet_breakdown_of_a_cycle20.txt"
 cycles_breakdowns_file = "data/dirichlet_breakdown_of_a_cycle200.txt"
 
+test_file = "data/dirichlet_1000_20.txt"
+
 
 class Drawer:
     colors = ['#2c8298', '#e0552e', '#90af3d', '#df9b34', '#8779b1', '#c36e27', '#609ec6', '#edb126']
     current_color = 0
     xs = np.arange(0, 3, 0.01)
 
-    def __init__(self, x_min=0.0, x_max=3.0):
+    def __init__(self, x_min=0.0, x_max=3.0, usetex=False):
         self.x_min = max(x_min, 0.0)
         self.x_max = min(x_max, 3.0)
         self.min_index = bisect_left(self.xs, x_min)
         self.max_index = bisect_left(self.xs, x_max)
         self.draw_xs = self.xs[self.min_index:self.max_index]
 
-        plt.rc('text', usetex=True)
-        plt.rc('font', family='serif', size=12)
+        if usetex:
+            plt.rc('text', usetex=True)
+            plt.rc('font', family='serif', size=12)
         plt.grid(True)
 
     def increase_color(self):
@@ -134,6 +137,7 @@ if __name__ == "__main__":
     # slite_dirichlet_data_round = json.loads(open("data/dirichlet_data_random_round_10.txt", 'r').read())
     # slite_classic_data_round = json.loads(open("data/classic_data_random_round_10.txt", 'r').read())
     # lite_dirichlet_data_smallN = json.loads(open(lite_dirichlet_file_smallN, 'r').read())
+    test_data = json.loads(open(test_file, 'r').read())
 
     # data_dirichlet_est = DataEstimator(dirichlet_data)
     # data_classic_est = DataEstimator(classic_data)
@@ -146,12 +150,12 @@ if __name__ == "__main__":
     # drawer = Drawer()
     # drawer.draw_function(d_over_b_dir, "d/b analytical")
     # drawer.draw_data(dirichlet_data, d_over_b, False, "d/b empirical")
-    # drawer = Drawer(0.5, 2)
-    drawer = Drawer(0.3, 1)
+    drawer = Drawer(0, 2)
+    # drawer = Drawer(0.3, 1)
 
     # drawer.draw_data(dirichlet_data, data_c_m(2))
 
-    drawer.draw_boxplot_data(lite_dirichlet_data, est_error(test_dirichlet_est))
+    # drawer.draw_boxplot_data(lite_dirichlet_data, est_error(test_dirichlet_est))
 
     # drawer.draw_data(lite_dirichlet_data, d_over_b, False, "Empirical value of $d/b$")
     # drawer.draw_function(d_over_b_dir, "Analytical value of $d/b$", linestyle='--')
@@ -175,7 +179,10 @@ if __name__ == "__main__":
     # drawer.draw_function(c_m_dir(4), "Analytical value of $c_4/n$", linestyle='--', linewidth=0.8)
 
     # drawer.draw_function(line, "real distance")
-    # drawer.draw_data(dirichlet_data, d_distance, False, "minimal distance")
+    # drawer.draw_data(test_data, d_distance, False, "minimal distance")
+
+    drawer.draw_data(test_data, data_c_m(2), True, "Empirical value of $c_2/n$", linewidth=0.8)
+    # drawer.draw_function(c_m_dir(2), "Analytical value of $c_2/n$", linestyle='--', linewidth=0.8)
 
     plt.subplots_adjust(bottom=0.11, top=0.98, right=0.99, left=0.07)
-    drawer.show_and_save(xlabel=r'$$\gamma$$', legend_loc=1)
+    drawer.show_and_save(xlabel=r'\gamma', legend_loc=1)
