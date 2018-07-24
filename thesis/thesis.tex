@@ -1,0 +1,62 @@
+\documentclass[times]{itmo-student-thesis}
+
+%% Опции пакета:
+%% - specification - если есть, генерируется задание, иначе не генерируется
+%% - annotation - если есть, генерируется аннотация, иначе не генерируется
+%% - times - делает все шрифтом Times New Roman, требует пакета pscyr.
+
+%% Делает запятую в формулах более интеллектуальной, например:
+%% $1,5x$ будет читаться как полтора икса, а не один запятая пять иксов.
+%% Однако если написать $1, 5x$, то все будет как прежде.
+\usepackage{icomma}
+
+%% Данные пакеты необязательны к использованию в бакалаврских/магистерских
+%% Они нужны для иллюстративных целей
+%% Начало
+% \usepackage{tikz}
+% \usetikzlibrary{arrows}
+% \usepackage{filecontents}
+% \usepackage{wrapfig}
+
+%% My packages
+\usepackage{bbm}
+\usepackage{graphicx}
+\usepackage[
+ font=small %% hack for bigger font size
+ ]{subfig}
+\usepackage{makecell}
+
+%% Указываем файл с библиографией.
+\addbibresource{thesis.bib}
+
+\begin{document}
+
+\studygroup{M3436}
+\title{Анализ геномных перестроек с помощью случайных графов}
+\author{Забелкин Алексей Андреевич}{Забелкина Алексея Андреевича}{Забелкин А.А.}{Забелкину А.А.}
+\supervisor{Алексеев Никита Владимирович}{Алексеев Н.В.}{канд. физ.-мат. наук}{ведущий научный сотрудник Университета ИТМО}
+\publishyear{2018}
+%% Дата выдачи задания. Можно не указывать, тогда надо будет заполнить от руки.
+\startdate{21}{ноября}{2017}
+%% Срок сдачи студентом работы. Можно не указывать, тогда надо будет заполнить от руки.
+%\finishdate{31}{мая}{2015}
+%% Дата защиты. Можно не указывать, тогда надо будет заполнить от руки.
+%\defencedate{15}{июня}{2015}
+
+\secretary{Павлова О.Н.}
+
+
+%% Эта команда генерирует титульный лист и аннотацию.
+\maketitle{Бакалавр}
+
+%% Оглавление
+\tableofcontents
+
+\include{intro}
+\include{chapter1}
+\include{chapter2}
+\include{chapter3}
+\include{conclusion}
+\printmainbibliography
+
+\end{document}
