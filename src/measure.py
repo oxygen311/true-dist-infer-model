@@ -29,7 +29,7 @@ def run(n, tries, workers):
     return ys
 
 
-def measure_c(n=1000, tries=20, workers=4):
+def measure_c(n, tries, workers):
     pool = mp.Pool()
     results = [pool.apply_async(run, [n, tries, workers]) for _ in range(workers)]
 
@@ -38,8 +38,8 @@ def measure_c(n=1000, tries=20, workers=4):
 
 if __name__ == "__main__":
     TRIES = 200
-    WORKERS = 4
+    WORKERS = 8
 
-    for n in range(100, 2600, 100):
+    for n in range(1700, 2500, 50):
         measured_c = measure_c(n, TRIES, WORKERS)
         open("data/diff_ns/dirichlet_%d_%d.txt" % (n, TRIES), 'w').write(json.dumps(measured_c))
