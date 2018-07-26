@@ -8,7 +8,6 @@ from src.estimators import TannierEstimator, DirichletEstimator, DataEstimator, 
 # from src.regression_estimators import SGDRegressorXEstimator, collect_cm_n_from_cycles, collect_cm_n_data
 from time import time
 from scipy.special import hyp2f1
-import plotly.plotly as py
 
 # plotly
 classic_file = "data/classic_data_N2000_2000.txt"

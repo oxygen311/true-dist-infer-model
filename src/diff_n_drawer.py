@@ -11,8 +11,8 @@ from src.drawer import est_error
 file_template = "data/diff_ns/dirichlet_%d_%d.txt"
 
 if __name__ == "__main__":
-    ns = range(100, 1701, 50)
-    tries = 200
+    ns = range(50, 850, 50)
+    tries = 1000
     xs = np.arange(0.25, 1.50, 0.25)
     ys = [[] for _ in xs]
 
