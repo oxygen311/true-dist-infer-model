@@ -4,11 +4,14 @@ from src.estimators import DirichletEstimator, TannierEstimator, get_d_from_cycl
     UniformEstimator, FirstCmsDirEstimator
 from itertools import combinations
 from os import listdir
-from time import time
 import numpy as np
+import sys
+from scipy import stats
 import random
+from src.cms_dist_from_data import get_cms_dist
 
-folder_path = "real_data/rasacae/"
+species = "shigella"
+folder_path = "real_data/" + species + "/"
 
 
 class RealDataGraph(nx.Graph):
@@ -73,11 +76,6 @@ class RealDataGraph(nx.Graph):
         if len(components_without_ends) % 2 == 1:
             self.add_edge(components_without_ends[-1][0], components_without_ends[-1][1])
 
-        # print("Components lengths by adding edge between edges same colors")
-        # print(bb_edges)
-        # print("Components lengths by adding edges between black and red edges")
-        # print(rb_edges)
-
     def count_cycles(self):
         counter = defaultdict(lambda: 0)
         for component in nx.connected_components(self):
@@ -85,17 +83,10 @@ class RealDataGraph(nx.Graph):
         return counter
 
 
-def print_array_stats(arr, parament_name):
-    arr.sort()
-    ln = len(arr)
-    print("Value:", parament_name)
-    print("    Min: ", round(np.min(arr), 2), "    Mean:", round(np.mean(arr), 2), "    Max: ", round(np.max(arr), 2))
-    print("    80% of results are between", round(arr[int(ln * 0.1)], 2), "and", round(arr[int(ln * 0.9)], 2))
-
-
 without_c1 = lambda g: {k: v for k, v in g.items() if k != '1'}
 
 if __name__ == "__main__":
+    sys.stdout = open(species + '.txt', 'w')
     # classic_file = "data/classic_data_N2000_2000.txt"
     # classic_data = json.loads(open(classic_file, 'r').read())
     # classic_est = DataEstimator(classic_data)
@@ -105,9 +96,11 @@ if __name__ == "__main__":
     uniEst = UniformEstimator()
     dirEst = FirstCmsDirEstimator(6)
     files = sorted(listdir(folder_path))
+    max_cms = 10
+    cms_dist = get_cms_dist("data/dirichlet_data_randomN_2000.txt", max_cms)
 
     for f1, f2 in combinations(files, 2):
-        # print(f1, "-", f2)
+        print(f1, "-", f2)
         graph = RealDataGraph()
         graph.add_edges_from_file(f1, "red")
         graph.add_edges_from_file(f2, "black")
@@ -115,16 +108,14 @@ if __name__ == "__main__":
 
         cycles = without_c1(graph.count_cycles())
 
-        some_dict = {}
-        some_dict["P.gen"] = "Prunus"
-        some_dict["S.gen"] = "Fragaria"
-        some_dict["V.gen"] = "Malus"
-
-        # get_d_from_cycles(cycles), "b:", get_b_from_cycles(cycles), "estimated k:",
-        #               dirEst.predict_k(cycles))
-
-        print("\emph{%s} --- \emph{%s}    & %d & %d & %d & %d     \\\hline" % (some_dict[f1], some_dict[f2],
-                                                                               get_d_from_cycles(cycles),
-                                                                               dirEst.predict_k(cycles),
-                                                                               tanEst.predict_k(cycles),
-                                                                               uniEst.predict_k(cycles)))
+        n, k = dirEst.predict(cycles)
+        x = 2 * k / n
+        i_cur_dist = int(round(x * 100))
+        cur_dist = cms_dist[i_cur_dist]
+        for cm in range(2, max_cms):
+            real_cm = cycles.get(str(cm), 0) / n
+            dist_cm = cur_dist[cm]
+            print("m = %d, stats.percentileofscore = %.2f, real c%d/n = %.4f, range of dist is [%.4f, %.4f]" % (cm, stats.percentileofscore(
+                dist_cm,
+                real_cm
+            ), cm, real_cm, np.min(dist_cm), np.max(dist_cm)))

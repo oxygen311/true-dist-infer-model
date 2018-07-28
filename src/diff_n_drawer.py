@@ -11,7 +11,7 @@ from src.drawer import est_error
 file_template = "data/diff_ns/dirichlet_%d_%d.txt"
 
 if __name__ == "__main__":
-    ns = range(50, 850, 50)
+    ns = range(50, 801, 50)
     tries = 1000
     xs = np.arange(0.25, 1.50, 0.25)
     ys = [[] for _ in xs]
@@ -35,5 +35,5 @@ if __name__ == "__main__":
     plt.xlabel("n")
     plt.ylabel("mean relative error abs")
 
-    plt.savefig('ns.pdf')
+    plt.savefig('ns.png')
     plt.show()

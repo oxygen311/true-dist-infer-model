@@ -34,7 +34,7 @@ class DataEstimator:
         self.b_over_n_valuer = DataValuer(data, lambda n, _, c: (n - c['1']) / n)
         self.d_over_b_valuer = DataValuer(data, lambda n, _, c: (n - sum(c.values())) / (max(1e-6, n - c['1'])))
 
-    def predict_k(self, cycles):
+    def predict(self, cycles):
         d = get_d_from_cycles(cycles)
         b = get_b_from_cycles(cycles)
         x = self.d_over_b_valuer.predict_arg(d / b)
@@ -44,13 +44,13 @@ class DataEstimator:
         n = b / b_over_n
 
         # n = b / (1 - math.exp(-x))
-        return max(d, n * x / 2)
+        return n, max(d, n * x / 2)
         # return n * x / 2
 
 
 class TannierEstimator:
     @staticmethod
-    def predict_k(cycles):
+    def predict(cycles):
         def e_c1(n, k):
             return n * sum(
                 np.prod([(- 2 * k / (n + u)) for u in range(0, l)])
@@ -107,7 +107,7 @@ class TannierEstimator:
         prediction = optimize.root(fun, np.array([3 * b, d]), jac=jac, method='hybr')
 
         # print(prediction)
-        return prediction.x[1]
+        return prediction.x[0], prediction.x[1]
 
 
 class DBFunctionEstimator:
@@ -117,7 +117,7 @@ class DBFunctionEstimator:
     def b_over_n(self, x):
         raise NotImplementedError('subclasses must override b_over_n!')
 
-    def predict_k(self, cycles):
+    def predict(self, cycles):
         d_over_b = lambda r: lambda x: self.d_over_n(x) / self.b_over_n(x) - r
 
         d = get_d_from_cycles(cycles)
@@ -127,7 +127,7 @@ class DBFunctionEstimator:
 
         b_n = self.b_over_n(x)
         n = b / b_n
-        return n * x / 2
+        return n, n * x / 2
 
 
 class DirichletEstimator(DBFunctionEstimator):
@@ -141,7 +141,7 @@ class DirichletEstimator(DBFunctionEstimator):
     def b_over_n(self, x):
         return x / (1 + x)
 
-    def predict_k(self, cycles):
+    def predict(self, cycles):
         def d_over_n_with_n(n):
             def ret_func(x):
                 ret = 1 - (1 + x) ** 2 * (hyp2f1(-2 / 3, -1 / 3, 1 / 2, 27 * x / (4 * (1 + x) ** 3)) - 1) / (3 * x)
@@ -164,7 +164,7 @@ class DirichletEstimator(DBFunctionEstimator):
         x2 = optimize.bisect(new_d_over_b_func(d / b), 1e-6, 3, xtol=1e-4)
 
         # return n * (x + x2) / 2 / 2
-        return n * x / 2
+        return n, n * x / 2
 
 
 class UniformEstimator(DBFunctionEstimator):
@@ -183,7 +183,7 @@ class FirstCmsDirEstimator:
         # self.cm_err = json.loads(open("data/cms_error_abs.txt", 'r').read())
         # self.cm_err = json.loads(open("data/cms_error_squared.txt", 'r').read())
 
-    def predict_k(self, cycles):
+    def predict(self, cycles):
         def e_c_m(n, k, m):
             x = 2 * k / n
             return n * math.factorial(3 * m - 3) * x ** (m - 1) \
@@ -225,7 +225,7 @@ class FirstCmsDirEstimator:
         prediction = optimize.root(fun, np.array([3 * b, d]), jac=jac, method='hybr')
 
         # print(prediction)
-        return prediction.x[1]
+        return prediction.x[0], prediction.x[1]
 
 
 without_c1 = lambda g: {str(k): v for k, v in g.items() if k != 1}

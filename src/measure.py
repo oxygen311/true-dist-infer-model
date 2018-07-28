@@ -38,8 +38,11 @@ def measure_c(n, tries, workers):
 
 if __name__ == "__main__":
     TRIES = 1000
-    WORKERS = 8
+    WORKERS = 4
 
-    for n in range(350, 2500, 50):
+    for n in range(10, 1000, 10):
+        if n % 50 == 0:
+            print("Skip:", n)
+            continue
         measured_c = measure_c(n, TRIES, WORKERS)
         open("data/diff_ns/dirichlet_%d_%d.txt" % (n, TRIES), 'w').write(json.dumps(measured_c))
