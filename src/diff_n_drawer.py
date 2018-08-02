@@ -6,34 +6,58 @@ from src.estimators import TannierEstimator, DirichletEstimator, DataEstimator, 
 from time import time
 from scipy.special import hyp2f1
 from src.drawer import est_error
+import seaborn as sns
+import pandas as pd
+import multiprocessing as mp
 
 # plotly
 file_template = "data/diff_ns/dirichlet_%d_%d.txt"
 
+
+def run(ds, n):
+    data_func = est_error(FirstCmsDirEstimator(5))
+    actual_func = lambda p: data_func(*p)
+    res = []
+    for i, d in enumerate(ds):
+        print(i, "of", len(ds),  "n =", n)
+        error = abs(actual_func(d))
+        res.append((n, error))
+    return res
+
+
 if __name__ == "__main__":
-    ns = range(50, 801, 50)
+    sns.set()
+    # sns.set(style="whitegrid")
+    ns = range(100, 501, 50)
+    columns = ["n", "method", "relative error abs"]
+    workers = 4
     tries = 1000
-    xs = np.arange(0.25, 1.50, 0.25)
-    ys = [[] for _ in xs]
+    x = 0.75
 
     data_function = est_error(FirstCmsDirEstimator(5))
     actual_func = lambda p: data_function(*p)
-
+    df = pd.DataFrame(columns=columns)
     for n in ns:
-        data = json.loads(open(file_template % (n, tries), 'r').read())
         print("cur n:", n)
-        for i, x in enumerate(xs):
-            ds = data[int(x * 100)]
-            tmp = list(filter(lambda el: el, [abs(actual_func(d)) for d in ds])) or [0]
-            ys[i].append(np.mean(tmp))
+        data = json.loads(open(file_template % (n, tries), 'r').read())
+        ds = data[int(x * 100)]
+        print(len(ds))
 
-    for i, x in enumerate(xs):
-        plt.plot(ns, ys[i], label=("x = " + str(x)))
+        split = np.array_split(ds, workers)
+        pool = mp.Pool()
+        results = [pool.apply_async(run, [sp, n]) for sp in split]
 
-    plt.legend(loc=1)
-    plt.grid(True)
-    plt.xlabel("n")
-    plt.ylabel("mean relative error abs")
+        for r in results:
+            for n, e in r.get():
+                df = df.append({'n': n, 'method': 'method from [2]', 'relative error abs': e}, ignore_index=True)
+    # df.to_pickle("data/diff_n_errors_tan_100_500.pkl")
+    # df = pd.read_pickle("data/diff_n_errors.pkl")
+
+    print(df)
+    s = sns.boxplot(x="n", y="relative error abs", hue="method", data=df, whis=[5, 95], showfliers=False,
+                    palette="RdBu")
 
     plt.savefig('ns.png')
+    plt.legend(frameon=True)
+
     plt.show()

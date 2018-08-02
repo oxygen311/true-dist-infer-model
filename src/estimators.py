@@ -110,6 +110,10 @@ class TannierEstimator:
         return prediction.x[0], prediction.x[1]
 
 
+    def predict_k(self, cycles):
+        return self.predict(cycles)[1]
+
+
 class DBFunctionEstimator:
     def d_over_n(self, x):
         raise NotImplementedError('subclasses must override d_over_n!')
@@ -226,6 +230,9 @@ class FirstCmsDirEstimator:
 
         # print(prediction)
         return prediction.x[0], prediction.x[1]
+
+    def predict_k(self, cycles):
+        return self.predict(cycles)[1]
 
 
 without_c1 = lambda g: {str(k): v for k, v in g.items() if k != 1}
