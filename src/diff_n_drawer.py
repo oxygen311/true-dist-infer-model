@@ -31,7 +31,7 @@ if __name__ == "__main__":
     ns = range(100, 501, 50)
     columns = ["n", "method", "relative error abs"]
     workers = 4
-    tries = 1000
+    tries = 100
     x = 0.75
 
     data_function = est_error(FirstCmsDirEstimator(5))
