@@ -33,16 +33,22 @@ def measure_c(n, tries, workers):
     pool = mp.Pool()
     results = [pool.apply_async(run, [n, tries, workers]) for _ in range(workers)]
 
-    return [x for r in results for x in r.get()]
+    res = [[] for _ in xs]
+    for r in results:
+        for i, x in enumerate(r.get()):
+            res[i] += x
+
+    return res
 
 
 if __name__ == "__main__":
-    TRIES = 1000
-    WORKERS = 4
+    TRIES = 100
+    WORKERS = 8
 
-    for n in range(10, 1000, 10):
+    for n in range(100, 500, 100):
         if n % 50 == 0:
             print("Skip:", n)
             continue
         measured_c = measure_c(n, TRIES, WORKERS)
+        print(len(measured_c))
         open("data/diff_ns/dirichlet_%d_%d.txt" % (n, TRIES), 'w').write(json.dumps(measured_c))
