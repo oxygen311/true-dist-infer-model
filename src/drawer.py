@@ -8,6 +8,9 @@ from src.estimators import TannierEstimator, DirichletEstimator, DataEstimator, 
 # from src.regression_estimators import SGDRegressorXEstimator, collect_cm_n_from_cycles, collect_cm_n_data
 from time import time
 from scipy.special import hyp2f1
+import seaborn as sns
+import matplotlib
+from scipy.signal import savgol_filter, medfilt
 
 # plotly
 classic_file = "data/classic_data_N2000_2000.txt"
@@ -24,7 +27,8 @@ test_file = "data/dirichlet_1000_20.txt"
 
 
 class Drawer:
-    colors = ['#2c8298', '#e0552e', '#90af3d', '#df9b34', '#8779b1', '#c36e27', '#609ec6', '#edb126']
+    # colors = ['#2c8298', '#e0552e', '#90af3d', '#df9b34', '#8779b1', '#c36e27', '#609ec6', '#edb126']
+    colors = ['#2e4d84', '#23781f', '#df9b34', '#8779b1', '#c36e27', '#609ec6', '#edb126']
     current_color = 0
     xs = np.arange(0, 3, 0.01)
 
@@ -42,6 +46,9 @@ class Drawer:
 
     def increase_color(self):
         self.current_color = (self.current_color + 1) % len(self.colors)
+
+    def reset_color(self):
+        self.current_color = 0
 
     def draw_data(self, data, data_function, with_interval=True, label=None, linewidth = 1.0):
         actual_func = lambda p: data_function(*p)
@@ -65,11 +72,28 @@ class Drawer:
 
         self.increase_color()
 
+    def draw_interval(self, data, data_function):
+        actual_func = lambda p: data_function(*p)
+        ys = []
+        for ds in data:
+            tmp = list([actual_func(d) for d in ds])
+            ys.append(sorted(tmp))
+
+        low = list(map(lambda y: y[int(len(y) * 0.025)], ys))
+        lowhat = savgol_filter(low, 31, 3)
+
+        upper = list(map(lambda y: y[int(len(y) * 0.975)], ys))
+        upperhat = savgol_filter(upper, 31, 3)
+        plt.fill_between(self.draw_xs, lowhat[self.min_index:self.max_index], upperhat[self.min_index:self.max_index], color=self.colors[self.current_color], alpha=0.35)
+
+    def draw_dots(self, xs, ys, legend, marker):
+        plt.scatter(xs, ys, color=self.colors[self.current_color], label=legend, marker=marker, s=25)
+
     def draw_function(self, func, label=None, linewidth=1.0, linestyle='-'):
         vectorized = np.vectorize(func)
         plt.plot(self.draw_xs, vectorized(self.draw_xs), color=self.colors[self.current_color], label=label,
                  linewidth=linewidth, linestyle=linestyle)
-        self.increase_color()
+        # self.increase_color()
 
     def draw_boxplot_data(self, data, data_function):
         actual_func = lambda p: data_function(*p)
@@ -85,12 +109,8 @@ class Drawer:
 
         real_xs = list(map(lambda x: round(x, 1), self.xs[self.min_index:self.max_index:10]))
 
-        # dmp = {}
-        # for x, y in zip(real_xs, ys):
-        #     dmp[x] = y
-        # open("data/est.txt", 'w').write(json.dumps(dmp))
-
-        plt.boxplot(ys, labels=real_xs, whis=[50, 50], showfliers=False)
+        # plt.boxplot(ys, labels=real_xs, whis=[5, 95], showfliers=False)
+        ax = sns.boxplot(x=real_xs, y=ys, whis=[5, 95], showfliers=False, color="#ebeae7", linewidth=1.2)
         # plt.ylim([-0.11, 0.11])
 
     @staticmethod
@@ -99,8 +119,8 @@ class Drawer:
         if xlabel: plt.xlabel(xlabel, fontsize=14)
         if ylabel: plt.ylabel(ylabel)
 
-        if legend_loc: plt.legend(loc=legend_loc)
-        # plt.savefig('cms.pdf')
+        if legend_loc: plt.legend(loc=legend_loc, frameon=True, prop={'size': 9})
+        plt.savefig('real-data-dist.pdf')
         plt.show()
 
 
@@ -130,14 +150,15 @@ if __name__ == "__main__":
     # classic_data = json.loads(open(classic_file, 'r').read())
     lite_classic_data = json.loads(open(lite_classic_file, 'r').read())
     # classic_est = DataEstimator(classic_data)
+    sns.set(style="whitegrid", font="serif", font_scale=1.2)
 
-    # dirichlet_data = json.loads(open(dirichlet_file, 'r').read())
+    dirichlet_data = json.loads(open(dirichlet_file, 'r').read())
     lite_dirichlet_data = json.loads(open(lite_dirichlet_file, 'r').read())
     # slite_dirichlet_data = json.loads(open(slite_dirichlet_file, 'r').read())
     # slite_dirichlet_data_round = json.loads(open("data/dirichlet_data_random_round_10.txt", 'r').read())
     # slite_classic_data_round = json.loads(open("data/classic_data_random_round_10.txt", 'r').read())
     # lite_dirichlet_data_smallN = json.loads(open(lite_dirichlet_file_smallN, 'r').read())
-    test_data = json.loads(open(test_file, 'r').read())
+    # test_data = json.loads(open(test_file, 'r').read())
 
     # data_dirichlet_est = DataEstimator(dirichlet_data)
     # data_classic_est = DataEstimator(classic_data)
@@ -146,43 +167,46 @@ if __name__ == "__main__":
     uniform_est = UniformEstimator()
     tannier_est = TannierEstimator()
     print("<read>")
+    plt.rc('text', usetex=True)
 
     # drawer = Drawer()
     # drawer.draw_function(d_over_b_dir, "d/b analytical")
     # drawer.draw_data(dirichlet_data, d_over_b, False, "d/b empirical")
+    # drawer = Drawer(0.5, 2)
     drawer = Drawer(0, 2)
-    # drawer = Drawer(0.3, 1)
 
     # drawer.draw_data(dirichlet_data, data_c_m(2))
 
     # drawer.draw_boxplot_data(lite_dirichlet_data, est_error(test_dirichlet_est))
 
-    # drawer.draw_data(lite_dirichlet_data, d_over_b, False, "Empirical value of $d/b$")
-    # drawer.draw_function(d_over_b_dir, "Analytical value of $d/b$", linestyle='--')
+    # drawer.draw_data(lite_dirichlet_data, d_over_b, False, "Empirical value of d/b")
+    # drawer.draw_function(d_over_b_dir, "Analytical value of d/b", linestyle='--')
     #
-    # drawer.draw_data(lite_dirichlet_data, d_distance, False, "Empirical value of $d/n$")
-    # drawer.draw_function(d_over_n_dir, "Analytical value of $d/n$", linestyle='--')
+    # drawer.draw_data(lite_dirichlet_data, d_distance, False, "Empirical value of d/n")
+    # drawer.draw_function(d_over_n_dir, "Analytical value of d/n", linestyle='--')
     #
-    # drawer.draw_data(lite_dirichlet_data, b_distance, False, "Empirical value of $b/n$")
-    # drawer.draw_function(b_over_n_dir, "Analytical value of $b/n$", linestyle='--')
+    # drawer.draw_data(lite_dirichlet_data, b_distance, False, "Empirical value of b/n")
+    # drawer.draw_function(b_over_n_dir, "Analytical value of b/n", linestyle='--')
     #
     # drawer.draw_data(lite_classic_data, d_distance, False, "Empirical value of $d/n$")
     # drawer.draw_function(lambda x: 1 - sum(c_m(m)(x) for m in range(1, 30)), "Analytical value of $d/n$", linestyle='--')
 
-    # drawer.draw_data(dirichlet_data, data_c_m(2), False, "Empirical value of $c_2/n$", linewidth=0.8)
-    # drawer.draw_function(c_m_dir(2), "Analytical value of $c_2/n$", linestyle='--', linewidth=0.8)
-    #
-    # drawer.draw_data(dirichlet_data, data_c_m(3), False, "Empirical value of $c_3/n$", linewidth=0.8)
-    # drawer.draw_function(c_m_dir(3), "Analytical value of $c_3/n$", linestyle='--', linewidth=0.8)
-    #
-    # drawer.draw_data(dirichlet_data, data_c_m(4), False, "Empirical value of $c_4/n$", linewidth=0.8)
-    # drawer.draw_function(c_m_dir(4), "Analytical value of $c_4/n$", linestyle='--', linewidth=0.8)
+    drawer.draw_data(dirichlet_data, data_c_m(2), False, "Empirical value of $c_2$/n", linewidth=0.8)
+    drawer.draw_function(c_m_dir(2), "Analytical value of $c_2$/n", linestyle='--', linewidth=0.8)
 
-    # drawer.draw_function(line, "real distance")
-    # drawer.draw_data(test_data, d_distance, False, "minimal distance")
+    drawer.draw_data(dirichlet_data, data_c_m(3), False, "Empirical value of $c_3$/n", linewidth=0.8)
+    drawer.draw_function(c_m_dir(3), "Analytical value of $c_3$/n", linestyle='--', linewidth=0.8)
 
-    drawer.draw_data(test_data, data_c_m(2), True, "Empirical value of $c_2/n$", linewidth=0.8)
+    drawer.draw_data(dirichlet_data, data_c_m(4), False, "Empirical value of $c_4$/n", linewidth=0.8)
+    drawer.draw_function(c_m_dir(4), "Analytical value of $c_4$/n", linestyle='--', linewidth=0.8)
+
+    # drawer.draw_function(line, "$k/n$")
+    # drawer.draw_data(lite_dirichlet_data, d_distance, False, "$\hat{d}/n$")
+
+    # drawer.draw_data(dirichlet_data, data_c_m(2), True, "Empirical value of $c_2/n$", linewidth=0.8)
     # drawer.draw_function(c_m_dir(2), "Analytical value of $c_2/n$", linestyle='--', linewidth=0.8)
 
     plt.subplots_adjust(bottom=0.11, top=0.98, right=0.99, left=0.07)
-    drawer.show_and_save(xlabel=r'\gamma', legend_loc=1)
+    plt.xlim(xmax=2.05, xmin=-0.05)
+    # plt.ylim(ymin=0)
+    drawer.show_and_save(legend_loc=1, xlabel=r'$\gamma$')

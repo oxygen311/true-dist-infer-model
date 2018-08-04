@@ -45,8 +45,8 @@ def measure_c(tries, workers):
 
 
 if __name__ == "__main__":
-    TRIES = 1000
-    WORKERS = 8
+    TRIES = 100
+    WORKERS = 4
 
     measured_c = measure_c(TRIES, WORKERS)
     open("data/diff_ns/dirichlet_%d.txt" % (TRIES), 'w').write(json.dumps(measured_c))

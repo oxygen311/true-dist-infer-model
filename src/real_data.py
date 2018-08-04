@@ -9,8 +9,10 @@ import sys
 from scipy import stats
 import random
 from src.cms_dist_from_data import get_cms_dist
+from src.drawer import Drawer, data_c_m
+import json
 
-species = "shigella"
+species = "mammalian"
 folder_path = "real_data/" + species + "/"
 
 
@@ -35,7 +37,7 @@ class RealDataGraph(nx.Graph):
         def add_block_edge(i, j):
             self.add_edge(2 * abs(i) + (1 if i > 0 else 0), 2 * abs(j) + (0 if j > 0 else 1), label=label)
 
-        with open(folder_path + file, "r") as f:
+        with open(file, "r") as f:
             for ch_index, line in enumerate(filter(lambda l: len(l) > 1 and (l[-2] == "$" or l[-2] == "@"), f)):
                 split = list(map(lambda x: int(x), line.split()[:-1]))
                 for i, j in zip(split, split[1:] + split[:1]) if cyclic else zip(split[:-1], split[1:]):
@@ -94,7 +96,7 @@ if __name__ == "__main__":
     # dirEst = DirichletEstimator()
     tanEst = TannierEstimator()
     uniEst = UniformEstimator()
-    dirEst = FirstCmsDirEstimator(6)
+    dirEst = FirstCmsDirEstimator(4)
     files = sorted(listdir(folder_path))
     max_cms = 10
     cms_dist = get_cms_dist("data/dirichlet_data_randomN_2000.txt", max_cms)
@@ -107,6 +109,8 @@ if __name__ == "__main__":
         graph.add_missing_edges_minimizing_d()
 
         cycles = without_c1(graph.count_cycles())
+        for k in sorted(map(lambda x: int(x), cycles.keys())):
+            print("   ", k, ":", cycles[str(k)])
 
         n, k = dirEst.predict(cycles)
         x = 2 * k / n

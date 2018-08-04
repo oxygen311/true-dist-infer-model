@@ -1,13 +1,25 @@
 C.gen - D.gen
-m = 2, stats.percentileofscore = 83.25, real c2/n = 0.0573, range of dist is [0.0340, 0.0687]
-m = 3, stats.percentileofscore = 8.30, real c3/n = 0.0109, range of dist is [0.0035, 0.0239]
-m = 4, stats.percentileofscore = 6.30, real c4/n = 0.0034, range of dist is [0.0007, 0.0137]
-m = 5, stats.percentileofscore = 45.40, real c5/n = 0.0029, range of dist is [0.0000, 0.0095]
-m = 6, stats.percentileofscore = 95.85, real c6/n = 0.0034, range of dist is [0.0000, 0.0067]
-m = 7, stats.percentileofscore = 82.70, real c7/n = 0.0017, range of dist is [0.0000, 0.0051]
-m = 8, stats.percentileofscore = 98.65, real c8/n = 0.0023, range of dist is [0.0000, 0.0036]
-m = 9, stats.percentileofscore = 62.20, real c9/n = 0.0006, range of dist is [0.0000, 0.0034]
+    2 : 100
+    3 : 18
+    4 : 7
+    5 : 8
+    6 : 5
+    7 : 1
+    8 : 3
+    9 : 1
+    10 : 1
+    12 : 1
+m = 2, stats.percentileofscore = 88.35, real c2/n = 0.0588, range of dist is [0.0333, 0.0712]
+m = 3, stats.percentileofscore = 5.80, real c3/n = 0.0106, range of dist is [0.0035, 0.0253]
+m = 4, stats.percentileofscore = 11.25, real c4/n = 0.0041, range of dist is [0.0007, 0.0133]
+m = 5, stats.percentileofscore = 88.80, real c5/n = 0.0047, range of dist is [0.0000, 0.0095]
+m = 6, stats.percentileofscore = 89.35, real c6/n = 0.0029, range of dist is [0.0000, 0.0067]
+m = 7, stats.percentileofscore = 24.60, real c7/n = 0.0006, range of dist is [0.0000, 0.0049]
+m = 8, stats.percentileofscore = 94.45, real c8/n = 0.0018, range of dist is [0.0000, 0.0036]
+m = 9, stats.percentileofscore = 59.45, real c9/n = 0.0006, range of dist is [0.0000, 0.0029]
 C.gen - H.gen
+    2 : 16
+    3 : 2
 m = 2, stats.percentileofscore = 63.35, real c2/n = 0.0176, range of dist is [0.0112, 0.0200]
 m = 3, stats.percentileofscore = 91.55, real c3/n = 0.0022, range of dist is [0.0000, 0.0043]
 m = 4, stats.percentileofscore = 39.30, real c4/n = 0.0000, range of dist is [0.0000, 0.0017]
@@ -17,119 +29,282 @@ m = 7, stats.percentileofscore = 50.02, real c7/n = 0.0000, range of dist is [0.
 m = 8, stats.percentileofscore = 50.02, real c8/n = 0.0000, range of dist is [0.0000, 0.0000]
 m = 9, stats.percentileofscore = 50.02, real c9/n = 0.0000, range of dist is [0.0000, 0.0000]
 C.gen - M.gen
-m = 2, stats.percentileofscore = 98.50, real c2/n = 0.0626, range of dist is [0.0326, 0.0727]
-m = 3, stats.percentileofscore = 0.15, real c3/n = 0.0075, range of dist is [0.0060, 0.0256]
-m = 4, stats.percentileofscore = 1.90, real c4/n = 0.0029, range of dist is [0.0007, 0.0138]
-m = 5, stats.percentileofscore = 47.30, real c5/n = 0.0035, range of dist is [0.0000, 0.0092]
-m = 6, stats.percentileofscore = 35.00, real c6/n = 0.0017, range of dist is [0.0000, 0.0068]
-m = 7, stats.percentileofscore = 65.20, real c7/n = 0.0017, range of dist is [0.0000, 0.0056]
-m = 8, stats.percentileofscore = 60.55, real c8/n = 0.0012, range of dist is [0.0000, 0.0047]
+    2 : 108
+    3 : 14
+    4 : 5
+    5 : 6
+    6 : 3
+    7 : 3
+    8 : 1
+    11 : 1
+    13 : 3
+    15 : 2
+    17 : 1
+    18 : 1
+    21 : 1
+    47 : 1
+m = 2, stats.percentileofscore = 97.65, real c2/n = 0.0619, range of dist is [0.0326, 0.0727]
+m = 3, stats.percentileofscore = 0.20, real c3/n = 0.0080, range of dist is [0.0060, 0.0256]
+m = 4, stats.percentileofscore = 1.70, real c4/n = 0.0029, range of dist is [0.0007, 0.0138]
+m = 5, stats.percentileofscore = 45.90, real c5/n = 0.0034, range of dist is [0.0000, 0.0092]
+m = 6, stats.percentileofscore = 34.15, real c6/n = 0.0017, range of dist is [0.0000, 0.0068]
+m = 7, stats.percentileofscore = 64.35, real c7/n = 0.0017, range of dist is [0.0000, 0.0056]
+m = 8, stats.percentileofscore = 28.95, real c8/n = 0.0006, range of dist is [0.0000, 0.0047]
 m = 9, stats.percentileofscore = 12.07, real c9/n = 0.0000, range of dist is [0.0000, 0.0041]
 C.gen - Q.gen
-m = 2, stats.percentileofscore = 17.80, real c2/n = 0.0424, range of dist is [0.0337, 0.0620]
-m = 3, stats.percentileofscore = 95.55, real c3/n = 0.0139, range of dist is [0.0035, 0.0176]
-m = 4, stats.percentileofscore = 7.40, real c4/n = 0.0016, range of dist is [0.0000, 0.0097]
-m = 5, stats.percentileofscore = 90.05, real c5/n = 0.0024, range of dist is [0.0000, 0.0046]
-m = 6, stats.percentileofscore = 69.90, real c6/n = 0.0008, range of dist is [0.0000, 0.0031]
-m = 7, stats.percentileofscore = 28.40, real c7/n = 0.0000, range of dist is [0.0000, 0.0030]
-m = 8, stats.percentileofscore = 36.65, real c8/n = 0.0000, range of dist is [0.0000, 0.0020]
-m = 9, stats.percentileofscore = 42.12, real c9/n = 0.0000, range of dist is [0.0000, 0.0014]
-C.gen - R.gen
-m = 2, stats.percentileofscore = 50.20, real c2/n = 0.0527, range of dist is [0.0349, 0.0689]
-m = 3, stats.percentileofscore = 96.85, real c3/n = 0.0206, range of dist is [0.0066, 0.0254]
-m = 4, stats.percentileofscore = 1.85, real c4/n = 0.0028, range of dist is [0.0007, 0.0147]
-m = 5, stats.percentileofscore = 10.45, real c5/n = 0.0018, range of dist is [0.0000, 0.0106]
-m = 6, stats.percentileofscore = 32.05, real c6/n = 0.0015, range of dist is [0.0000, 0.0077]
-m = 7, stats.percentileofscore = 16.20, real c7/n = 0.0005, range of dist is [0.0000, 0.0050]
-m = 8, stats.percentileofscore = 32.10, real c8/n = 0.0005, range of dist is [0.0000, 0.0038]
-m = 9, stats.percentileofscore = 45.45, real c9/n = 0.0005, range of dist is [0.0000, 0.0045]
-D.gen - H.gen
-m = 2, stats.percentileofscore = 85.05, real c2/n = 0.0579, range of dist is [0.0340, 0.0687]
-m = 3, stats.percentileofscore = 2.50, real c3/n = 0.0094, range of dist is [0.0035, 0.0239]
-m = 4, stats.percentileofscore = 13.90, real c4/n = 0.0041, range of dist is [0.0007, 0.0137]
-m = 5, stats.percentileofscore = 81.15, real c5/n = 0.0041, range of dist is [0.0000, 0.0095]
-m = 6, stats.percentileofscore = 76.65, real c6/n = 0.0024, range of dist is [0.0000, 0.0067]
-m = 7, stats.percentileofscore = 93.95, real c7/n = 0.0024, range of dist is [0.0000, 0.0051]
-m = 8, stats.percentileofscore = 98.80, real c8/n = 0.0024, range of dist is [0.0000, 0.0036]
-m = 9, stats.percentileofscore = 19.82, real c9/n = 0.0000, range of dist is [0.0000, 0.0034]
-D.gen - M.gen
-m = 2, stats.percentileofscore = 97.35, real c2/n = 0.0607, range of dist is [0.0317, 0.0727]
-m = 3, stats.percentileofscore = 3.90, real c3/n = 0.0104, range of dist is [0.0056, 0.0255]
-m = 4, stats.percentileofscore = 0.40, real c4/n = 0.0017, range of dist is [0.0000, 0.0156]
-m = 5, stats.percentileofscore = 2.95, real c5/n = 0.0012, range of dist is [0.0000, 0.0096]
-m = 6, stats.percentileofscore = 86.80, real c6/n = 0.0035, range of dist is [0.0000, 0.0074]
-m = 7, stats.percentileofscore = 64.05, real c7/n = 0.0017, range of dist is [0.0000, 0.0060]
-m = 8, stats.percentileofscore = 83.55, real c8/n = 0.0017, range of dist is [0.0000, 0.0047]
-m = 9, stats.percentileofscore = 42.35, real c9/n = 0.0006, range of dist is [0.0000, 0.0042]
-D.gen - Q.gen
-m = 2, stats.percentileofscore = 90.50, real c2/n = 0.0589, range of dist is [0.0340, 0.0708]
-m = 3, stats.percentileofscore = 5.85, real c3/n = 0.0102, range of dist is [0.0038, 0.0239]
-m = 4, stats.percentileofscore = 7.20, real c4/n = 0.0032, range of dist is [0.0008, 0.0128]
-m = 5, stats.percentileofscore = 7.55, real c5/n = 0.0011, range of dist is [0.0000, 0.0098]
-m = 6, stats.percentileofscore = 91.35, real c6/n = 0.0027, range of dist is [0.0000, 0.0062]
-m = 7, stats.percentileofscore = 84.65, real c7/n = 0.0016, range of dist is [0.0000, 0.0044]
-m = 8, stats.percentileofscore = 83.35, real c8/n = 0.0011, range of dist is [0.0000, 0.0038]
-m = 9, stats.percentileofscore = 67.55, real c9/n = 0.0005, range of dist is [0.0000, 0.0029]
-D.gen - R.gen
-m = 2, stats.percentileofscore = 50.20, real c2/n = 0.0527, range of dist is [0.0349, 0.0689]
-m = 3, stats.percentileofscore = 98.55, real c3/n = 0.0215, range of dist is [0.0066, 0.0254]
-m = 4, stats.percentileofscore = 1.25, real c4/n = 0.0026, range of dist is [0.0007, 0.0147]
-m = 5, stats.percentileofscore = 20.15, real c5/n = 0.0023, range of dist is [0.0000, 0.0106]
-m = 6, stats.percentileofscore = 4.15, real c6/n = 0.0005, range of dist is [0.0000, 0.0077]
-m = 7, stats.percentileofscore = 27.80, real c7/n = 0.0008, range of dist is [0.0000, 0.0050]
-m = 8, stats.percentileofscore = 48.50, real c8/n = 0.0008, range of dist is [0.0000, 0.0038]
-m = 9, stats.percentileofscore = 64.40, real c9/n = 0.0008, range of dist is [0.0000, 0.0045]
-H.gen - M.gen
-m = 2, stats.percentileofscore = 98.30, real c2/n = 0.0623, range of dist is [0.0317, 0.0727]
-m = 3, stats.percentileofscore = 0.60, real c3/n = 0.0085, range of dist is [0.0060, 0.0264]
-m = 4, stats.percentileofscore = 1.25, real c4/n = 0.0024, range of dist is [0.0000, 0.0147]
-m = 5, stats.percentileofscore = 34.75, real c5/n = 0.0030, range of dist is [0.0000, 0.0085]
-m = 6, stats.percentileofscore = 38.20, real c6/n = 0.0018, range of dist is [0.0000, 0.0068]
-m = 7, stats.percentileofscore = 41.70, real c7/n = 0.0012, range of dist is [0.0000, 0.0060]
-m = 8, stats.percentileofscore = 30.70, real c8/n = 0.0006, range of dist is [0.0000, 0.0048]
-m = 9, stats.percentileofscore = 11.78, real c9/n = 0.0000, range of dist is [0.0000, 0.0038]
-H.gen - Q.gen
-m = 2, stats.percentileofscore = 14.80, real c2/n = 0.0426, range of dist is [0.0332, 0.0620]
-m = 3, stats.percentileofscore = 98.10, real c3/n = 0.0155, range of dist is [0.0033, 0.0185]
-m = 4, stats.percentileofscore = 9.50, real c4/n = 0.0019, range of dist is [0.0000, 0.0096]
-m = 5, stats.percentileofscore = 93.10, real c5/n = 0.0029, range of dist is [0.0000, 0.0054]
-m = 6, stats.percentileofscore = 73.55, real c6/n = 0.0010, range of dist is [0.0000, 0.0031]
+    2 : 52
+    3 : 17
+    4 : 2
+    5 : 3
+    6 : 1
+m = 2, stats.percentileofscore = 31.00, real c2/n = 0.0452, range of dist is [0.0332, 0.0620]
+m = 3, stats.percentileofscore = 96.75, real c3/n = 0.0148, range of dist is [0.0033, 0.0185]
+m = 4, stats.percentileofscore = 6.60, real c4/n = 0.0017, range of dist is [0.0000, 0.0096]
+m = 5, stats.percentileofscore = 88.85, real c5/n = 0.0026, range of dist is [0.0000, 0.0054]
+m = 6, stats.percentileofscore = 68.35, real c6/n = 0.0009, range of dist is [0.0000, 0.0031]
 m = 7, stats.percentileofscore = 26.02, real c7/n = 0.0000, range of dist is [0.0000, 0.0023]
 m = 8, stats.percentileofscore = 33.62, real c8/n = 0.0000, range of dist is [0.0000, 0.0027]
 m = 9, stats.percentileofscore = 40.85, real c9/n = 0.0000, range of dist is [0.0000, 0.0014]
+C.gen - R.gen
+    2 : 205
+    3 : 80
+    4 : 11
+    5 : 8
+    6 : 6
+    7 : 2
+    8 : 3
+    9 : 1
+    12 : 1
+    14 : 1
+    15 : 2
+    18 : 1
+    20 : 1
+    22 : 1
+    23 : 1
+    24 : 1
+    39 : 1
+m = 2, stats.percentileofscore = 38.55, real c2/n = 0.0512, range of dist is [0.0348, 0.0705]
+m = 3, stats.percentileofscore = 96.30, real c3/n = 0.0200, range of dist is [0.0060, 0.0249]
+m = 4, stats.percentileofscore = 2.00, real c4/n = 0.0027, range of dist is [0.0007, 0.0153]
+m = 5, stats.percentileofscore = 15.85, real c5/n = 0.0020, range of dist is [0.0000, 0.0088]
+m = 6, stats.percentileofscore = 34.70, real c6/n = 0.0015, range of dist is [0.0000, 0.0088]
+m = 7, stats.percentileofscore = 16.80, real c7/n = 0.0005, range of dist is [0.0000, 0.0051]
+m = 8, stats.percentileofscore = 50.80, real c8/n = 0.0007, range of dist is [0.0000, 0.0038]
+m = 9, stats.percentileofscore = 33.25, real c9/n = 0.0002, range of dist is [0.0000, 0.0034]
+D.gen - H.gen
+    2 : 98
+    3 : 16
+    4 : 8
+    5 : 6
+    6 : 3
+    7 : 6
+    8 : 2
+    9 : 1
+    10 : 1
+m = 2, stats.percentileofscore = 88.80, real c2/n = 0.0590, range of dist is [0.0333, 0.0712]
+m = 3, stats.percentileofscore = 2.65, real c3/n = 0.0096, range of dist is [0.0035, 0.0253]
+m = 4, stats.percentileofscore = 21.55, real c4/n = 0.0048, range of dist is [0.0007, 0.0133]
+m = 5, stats.percentileofscore = 66.20, real c5/n = 0.0036, range of dist is [0.0000, 0.0095]
+m = 6, stats.percentileofscore = 52.50, real c6/n = 0.0018, range of dist is [0.0000, 0.0067]
+m = 7, stats.percentileofscore = 99.60, real c7/n = 0.0036, range of dist is [0.0000, 0.0049]
+m = 8, stats.percentileofscore = 80.70, real c8/n = 0.0012, range of dist is [0.0000, 0.0036]
+m = 9, stats.percentileofscore = 59.95, real c9/n = 0.0006, range of dist is [0.0000, 0.0029]
+D.gen - M.gen
+    2 : 105
+    3 : 18
+    4 : 3
+    5 : 1
+    6 : 7
+    7 : 3
+    8 : 3
+    9 : 1
+    10 : 2
+    12 : 3
+    17 : 1
+    18 : 1
+    19 : 1
+    20 : 1
+    24 : 1
+    26 : 1
+m = 2, stats.percentileofscore = 96.45, real c2/n = 0.0600, range of dist is [0.0317, 0.0727]
+m = 3, stats.percentileofscore = 3.50, real c3/n = 0.0103, range of dist is [0.0056, 0.0255]
+m = 4, stats.percentileofscore = 0.40, real c4/n = 0.0017, range of dist is [0.0000, 0.0156]
+m = 5, stats.percentileofscore = 0.70, real c5/n = 0.0006, range of dist is [0.0000, 0.0096]
+m = 6, stats.percentileofscore = 93.25, real c6/n = 0.0040, range of dist is [0.0000, 0.0074]
+m = 7, stats.percentileofscore = 63.05, real c7/n = 0.0017, range of dist is [0.0000, 0.0060]
+m = 8, stats.percentileofscore = 82.95, real c8/n = 0.0017, range of dist is [0.0000, 0.0047]
+m = 9, stats.percentileofscore = 41.85, real c9/n = 0.0006, range of dist is [0.0000, 0.0042]
+D.gen - Q.gen
+    2 : 110
+    3 : 19
+    4 : 5
+    5 : 4
+    6 : 3
+    7 : 6
+    8 : 1
+    10 : 1
+    15 : 1
+m = 2, stats.percentileofscore = 90.55, real c2/n = 0.0589, range of dist is [0.0340, 0.0708]
+m = 3, stats.percentileofscore = 5.95, real c3/n = 0.0102, range of dist is [0.0038, 0.0239]
+m = 4, stats.percentileofscore = 3.25, real c4/n = 0.0027, range of dist is [0.0008, 0.0128]
+m = 5, stats.percentileofscore = 32.00, real c5/n = 0.0021, range of dist is [0.0000, 0.0098]
+m = 6, stats.percentileofscore = 56.85, real c6/n = 0.0016, range of dist is [0.0000, 0.0062]
+m = 7, stats.percentileofscore = 99.70, real c7/n = 0.0032, range of dist is [0.0000, 0.0044]
+m = 8, stats.percentileofscore = 50.70, real c8/n = 0.0005, range of dist is [0.0000, 0.0038]
+m = 9, stats.percentileofscore = 23.38, real c9/n = 0.0000, range of dist is [0.0000, 0.0029]
+D.gen - R.gen
+    2 : 206
+    3 : 84
+    4 : 10
+    5 : 8
+    6 : 2
+    7 : 3
+    8 : 3
+    9 : 3
+    10 : 4
+    11 : 4
+    13 : 1
+    14 : 1
+    17 : 1
+    18 : 1
+    21 : 1
+    22 : 1
+    25 : 1
+m = 2, stats.percentileofscore = 35.15, real c2/n = 0.0508, range of dist is [0.0340, 0.0712]
+m = 3, stats.percentileofscore = 97.50, real c3/n = 0.0207, range of dist is [0.0061, 0.0257]
+m = 4, stats.percentileofscore = 1.00, real c4/n = 0.0025, range of dist is [0.0009, 0.0160]
+m = 5, stats.percentileofscore = 14.90, real c5/n = 0.0020, range of dist is [0.0000, 0.0106]
+m = 6, stats.percentileofscore = 4.10, real c6/n = 0.0005, range of dist is [0.0000, 0.0088]
+m = 7, stats.percentileofscore = 28.60, real c7/n = 0.0007, range of dist is [0.0000, 0.0050]
+m = 8, stats.percentileofscore = 48.45, real c8/n = 0.0007, range of dist is [0.0000, 0.0034]
+m = 9, stats.percentileofscore = 64.30, real c9/n = 0.0007, range of dist is [0.0000, 0.0038]
+H.gen - M.gen
+    2 : 102
+    3 : 14
+    4 : 4
+    5 : 5
+    6 : 3
+    7 : 2
+    8 : 2
+    9 : 1
+    11 : 1
+    13 : 2
+    14 : 1
+    15 : 1
+    18 : 4
+    39 : 1
+m = 2, stats.percentileofscore = 97.65, real c2/n = 0.0615, range of dist is [0.0317, 0.0727]
+m = 3, stats.percentileofscore = 0.60, real c3/n = 0.0084, range of dist is [0.0060, 0.0264]
+m = 4, stats.percentileofscore = 1.25, real c4/n = 0.0024, range of dist is [0.0000, 0.0147]
+m = 5, stats.percentileofscore = 34.40, real c5/n = 0.0030, range of dist is [0.0000, 0.0085]
+m = 6, stats.percentileofscore = 38.00, real c6/n = 0.0018, range of dist is [0.0000, 0.0068]
+m = 7, stats.percentileofscore = 41.55, real c7/n = 0.0012, range of dist is [0.0000, 0.0060]
+m = 8, stats.percentileofscore = 62.75, real c8/n = 0.0012, range of dist is [0.0000, 0.0048]
+m = 9, stats.percentileofscore = 43.75, real c9/n = 0.0006, range of dist is [0.0000, 0.0038]
+H.gen - Q.gen
+    2 : 45
+    3 : 17
+    4 : 1
+    5 : 3
+    6 : 1
+m = 2, stats.percentileofscore = 24.80, real c2/n = 0.0452, range of dist is [0.0312, 0.0643]
+m = 3, stats.percentileofscore = 99.20, real c3/n = 0.0171, range of dist is [0.0025, 0.0189]
+m = 4, stats.percentileofscore = 1.30, real c4/n = 0.0010, range of dist is [0.0000, 0.0096]
+m = 5, stats.percentileofscore = 92.45, real c5/n = 0.0030, range of dist is [0.0000, 0.0059]
+m = 6, stats.percentileofscore = 69.05, real c6/n = 0.0010, range of dist is [0.0000, 0.0036]
+m = 7, stats.percentileofscore = 23.30, real c7/n = 0.0000, range of dist is [0.0000, 0.0027]
+m = 8, stats.percentileofscore = 30.70, real c8/n = 0.0000, range of dist is [0.0000, 0.0020]
+m = 9, stats.percentileofscore = 38.62, real c9/n = 0.0000, range of dist is [0.0000, 0.0021]
 H.gen - R.gen
-m = 2, stats.percentileofscore = 47.10, real c2/n = 0.0524, range of dist is [0.0349, 0.0689]
-m = 3, stats.percentileofscore = 98.10, real c3/n = 0.0211, range of dist is [0.0066, 0.0254]
-m = 4, stats.percentileofscore = 2.00, real c4/n = 0.0029, range of dist is [0.0007, 0.0147]
-m = 5, stats.percentileofscore = 11.30, real c5/n = 0.0018, range of dist is [0.0000, 0.0106]
-m = 6, stats.percentileofscore = 23.55, real c6/n = 0.0013, range of dist is [0.0000, 0.0077]
-m = 7, stats.percentileofscore = 29.25, real c7/n = 0.0008, range of dist is [0.0000, 0.0050]
-m = 8, stats.percentileofscore = 49.55, real c8/n = 0.0008, range of dist is [0.0000, 0.0038]
-m = 9, stats.percentileofscore = 30.15, real c9/n = 0.0003, range of dist is [0.0000, 0.0045]
-M.gen - Q.gen
-m = 2, stats.percentileofscore = 98.90, real c2/n = 0.0639, range of dist is [0.0339, 0.0719]
-m = 3, stats.percentileofscore = 5.90, real c3/n = 0.0109, range of dist is [0.0060, 0.0247]
-m = 4, stats.percentileofscore = 0.40, real c4/n = 0.0017, range of dist is [0.0007, 0.0143]
-m = 5, stats.percentileofscore = 7.15, real c5/n = 0.0017, range of dist is [0.0000, 0.0109]
-m = 6, stats.percentileofscore = 3.75, real c6/n = 0.0006, range of dist is [0.0000, 0.0068]
-m = 7, stats.percentileofscore = 65.25, real c7/n = 0.0017, range of dist is [0.0000, 0.0052]
-m = 8, stats.percentileofscore = 28.75, real c8/n = 0.0006, range of dist is [0.0000, 0.0041]
-m = 9, stats.percentileofscore = 12.55, real c9/n = 0.0000, range of dist is [0.0000, 0.0035]
-M.gen - R.gen
-m = 2, stats.percentileofscore = 12.70, real c2/n = 0.0454, range of dist is [0.0314, 0.0723]
-m = 3, stats.percentileofscore = 99.95, real c3/n = 0.0214, range of dist is [0.0048, 0.0229]
-m = 4, stats.percentileofscore = 12.30, real c4/n = 0.0031, range of dist is [0.0000, 0.0101]
-m = 5, stats.percentileofscore = 45.25, real c5/n = 0.0020, range of dist is [0.0000, 0.0071]
-m = 6, stats.percentileofscore = 11.55, real c6/n = 0.0003, range of dist is [0.0000, 0.0048]
-m = 7, stats.percentileofscore = 14.05, real c7/n = 0.0000, range of dist is [0.0000, 0.0042]
-m = 8, stats.percentileofscore = 45.95, real c8/n = 0.0003, range of dist is [0.0000, 0.0030]
-m = 9, stats.percentileofscore = 81.55, real c9/n = 0.0006, range of dist is [0.0000, 0.0024]
-Q.gen - R.gen
-m = 2, stats.percentileofscore = 41.00, real c2/n = 0.0516, range of dist is [0.0348, 0.0705]
-m = 3, stats.percentileofscore = 99.10, real c3/n = 0.0217, range of dist is [0.0060, 0.0249]
-m = 4, stats.percentileofscore = 3.55, real c4/n = 0.0033, range of dist is [0.0007, 0.0153]
-m = 5, stats.percentileofscore = 16.25, real c5/n = 0.0020, range of dist is [0.0000, 0.0088]
-m = 6, stats.percentileofscore = 4.85, real c6/n = 0.0005, range of dist is [0.0000, 0.0088]
-m = 7, stats.percentileofscore = 17.00, real c7/n = 0.0005, range of dist is [0.0000, 0.0051]
-m = 8, stats.percentileofscore = 35.20, real c8/n = 0.0005, range of dist is [0.0000, 0.0038]
+    2 : 199
+    3 : 80
+    4 : 11
+    5 : 7
+    6 : 5
+    7 : 2
+    8 : 2
+    9 : 1
+    10 : 1
+    11 : 1
+    14 : 2
+    15 : 1
+    16 : 1
+    18 : 2
+    20 : 1
+    22 : 1
+    23 : 1
+    35 : 1
+m = 2, stats.percentileofscore = 34.80, real c2/n = 0.0508, range of dist is [0.0348, 0.0705]
+m = 3, stats.percentileofscore = 97.40, real c3/n = 0.0204, range of dist is [0.0060, 0.0249]
+m = 4, stats.percentileofscore = 2.20, real c4/n = 0.0028, range of dist is [0.0007, 0.0153]
+m = 5, stats.percentileofscore = 11.70, real c5/n = 0.0018, range of dist is [0.0000, 0.0088]
+m = 6, stats.percentileofscore = 25.05, real c6/n = 0.0013, range of dist is [0.0000, 0.0088]
+m = 7, stats.percentileofscore = 17.25, real c7/n = 0.0005, range of dist is [0.0000, 0.0051]
+m = 8, stats.percentileofscore = 35.35, real c8/n = 0.0005, range of dist is [0.0000, 0.0038]
 m = 9, stats.percentileofscore = 33.25, real c9/n = 0.0003, range of dist is [0.0000, 0.0034]
+M.gen - Q.gen
+    2 : 111
+    3 : 19
+    4 : 3
+    5 : 3
+    6 : 1
+    7 : 3
+    8 : 1
+    10 : 1
+    12 : 1
+    13 : 2
+    16 : 1
+    18 : 1
+    19 : 3
+    48 : 1
+m = 2, stats.percentileofscore = 96.00, real c2/n = 0.0615, range of dist is [0.0341, 0.0708]
+m = 3, stats.percentileofscore = 3.50, real c3/n = 0.0105, range of dist is [0.0058, 0.0255]
+m = 4, stats.percentileofscore = 0.15, real c4/n = 0.0017, range of dist is [0.0010, 0.0137]
+m = 5, stats.percentileofscore = 6.50, real c5/n = 0.0017, range of dist is [0.0000, 0.0104]
+m = 6, stats.percentileofscore = 3.55, real c6/n = 0.0006, range of dist is [0.0000, 0.0064]
+m = 7, stats.percentileofscore = 64.65, real c7/n = 0.0017, range of dist is [0.0000, 0.0069]
+m = 8, stats.percentileofscore = 28.60, real c8/n = 0.0006, range of dist is [0.0000, 0.0049]
+m = 9, stats.percentileofscore = 13.30, real c9/n = 0.0000, range of dist is [0.0000, 0.0039]
+M.gen - R.gen
+    2 : 159
+    3 : 76
+    4 : 11
+    5 : 7
+    6 : 1
+    8 : 2
+    9 : 2
+    11 : 1
+    12 : 1
+m = 2, stats.percentileofscore = 7.60, real c2/n = 0.0437, range of dist is [0.0321, 0.0703]
+m = 3, stats.percentileofscore = 99.90, real c3/n = 0.0209, range of dist is [0.0048, 0.0215]
+m = 4, stats.percentileofscore = 14.10, real c4/n = 0.0030, range of dist is [0.0000, 0.0104]
+m = 5, stats.percentileofscore = 45.70, real c5/n = 0.0019, range of dist is [0.0000, 0.0065]
+m = 6, stats.percentileofscore = 13.35, real c6/n = 0.0003, range of dist is [0.0000, 0.0054]
+m = 7, stats.percentileofscore = 15.68, real c7/n = 0.0000, range of dist is [0.0000, 0.0030]
+m = 8, stats.percentileofscore = 71.15, real c8/n = 0.0005, range of dist is [0.0000, 0.0036]
+m = 9, stats.percentileofscore = 82.25, real c9/n = 0.0005, range of dist is [0.0000, 0.0024]
+Q.gen - R.gen
+    2 : 205
+    3 : 86
+    4 : 14
+    5 : 8
+    6 : 2
+    7 : 2
+    8 : 2
+    9 : 1
+    10 : 1
+    14 : 1
+    15 : 1
+    23 : 1
+    24 : 1
+    25 : 2
+    26 : 1
+    28 : 1
+m = 2, stats.percentileofscore = 24.50, real c2/n = 0.0494, range of dist is [0.0333, 0.0712]
+m = 3, stats.percentileofscore = 98.45, real c3/n = 0.0207, range of dist is [0.0035, 0.0253]
+m = 4, stats.percentileofscore = 5.40, real c4/n = 0.0034, range of dist is [0.0007, 0.0133]
+m = 5, stats.percentileofscore = 16.70, real c5/n = 0.0019, range of dist is [0.0000, 0.0095]
+m = 6, stats.percentileofscore = 5.35, real c6/n = 0.0005, range of dist is [0.0000, 0.0067]
+m = 7, stats.percentileofscore = 19.15, real c7/n = 0.0005, range of dist is [0.0000, 0.0049]
+m = 8, stats.percentileofscore = 37.40, real c8/n = 0.0005, range of dist is [0.0000, 0.0036]
+m = 9, stats.percentileofscore = 36.20, real c9/n = 0.0002, range of dist is [0.0000, 0.0029]

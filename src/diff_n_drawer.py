@@ -20,16 +20,15 @@ def run(ds, n):
     res = []
     for i, d in enumerate(ds):
         print(i, "of", len(ds),  "n =", n)
-        error = abs(actual_func(d))
+        error = actual_func(d)
         res.append((n, error))
     return res
 
 
 if __name__ == "__main__":
-    sns.set()
-    # sns.set(style="whitegrid")
-    columns = ["n", "method", "relative error abs"]
-    workers = 8
+    sns.set(style="whitegrid", font="serif")
+    columns = ["n", "method", "relative error"]
+    workers = 4
     tries = 1000
     data = json.loads(open(file_template % (tries), 'r').read())
 
@@ -45,16 +44,21 @@ if __name__ == "__main__":
 
         for r in results:
             for n, e in r.get():
-                df = df.append({'n': n, 'method': 'method from [2]', 'relative error abs': e}, ignore_index=True)
-                df = df.append({'n': n, 'method': 'our', 'relative error abs': e + 0.01}, ignore_index=True)
-    # df.to_pickle("data/diff_n_errors_tan_100_500.pkl")
-    # df = pd.read_pickle("data/diff_n_errors.pkl")
+                df = df.append({'n': n, 'method': 'our method', 'relative error': e}, ignore_index=True)
+                # df = df.append({'n': n, 'method': 'our', 'relative error': e + 0.01}, ignore_index=True)
+    # df.to_pickle("data/diff_n_errors_our_100_500(1000)2.pkl")
+    # df2 = pd.read_pickle("data/diff_n_errors_tan_100_500.pkl")
+    # print(df)
+    # print(df2)
+    # df = df.append(df2, ignore_index=True)
 
     print(df)
-    s = sns.boxplot(x="n", y="relative error abs", hue="method", data=df, whis=[5, 95], showfliers=False,
+    df["absolute value of relative error"] = df["relative error"].apply(lambda x: abs(x))
+
+    s = sns.boxplot(x="n", y="absolute value of relative error", hue="method", data=df, whis=[5, 95], showfliers=False,
                     palette="RdBu")
 
-    plt.savefig('ns.png')
+    plt.savefig('ns.pdf')
     plt.legend(frameon=True)
 
     plt.show()

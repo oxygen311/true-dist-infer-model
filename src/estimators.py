@@ -101,7 +101,7 @@ class TannierEstimator:
 
         b = get_b_from_cycles(cycles)
         d = get_d_from_cycles(cycles)
-        c2 = cycles['2']
+        c2 = cycles.get('2', 0)
 
         fun = create_fun(b, c2)
         prediction = optimize.root(fun, np.array([3 * b, d]), jac=jac, method='hybr')
@@ -183,7 +183,7 @@ class UniformEstimator(DBFunctionEstimator):
 class FirstCmsDirEstimator:
     def __init__(self, max_m):
         self.max_m = max_m + 1
-        self.cm_err = [1] * 30
+        self.cm_err = [1] + [1] + [1] + [1] + [1] * 30
         # self.cm_err = json.loads(open("data/cms_error_abs.txt", 'r').read())
         # self.cm_err = json.loads(open("data/cms_error_squared.txt", 'r').read())
 
@@ -208,7 +208,7 @@ class FirstCmsDirEstimator:
             def fun(x):
                 return [x[0] - e_c_m(x[0], x[1], 1) - real_b,
                         sum(
-                            (e_c_m(x[0], x[1], m) - cycles[str(m)] if str(m) in cycles else 0) / self.cm_err[m]
+                            ((e_c_m(x[0], x[1], m) - cycles[str(m)]) if str(m) in cycles else 0) / self.cm_err[m]
                             for m in range(2, self. max_m)
                         )]
 
