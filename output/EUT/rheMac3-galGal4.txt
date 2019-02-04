@@ -1,0 +1,44 @@
+Allowed blocks: 1898 
+
+EUT - rheMac3
+d: 106.0
+b: 142.5
+d/b 0.74
+p_odd: 18
+p_even: 34
+p_0: 27
+c: 1775
+c_not_2: 33
+n: 1898.0
+estimated k by unifotm estimator: 105.99
+estimated k by dirichlet estimator: 106.0
+estimated k by gamma(1/4) estimator: 105.9
+
+EUT - galGal4
+d: 339.0
+b: 384.0
+d/b 0.88
+p_odd: 36
+p_even: 24
+p_0: 4
+c: 1547
+c_not_2: 35
+n: 1898.0
+estimated k by unifotm estimator: 345.39
+estimated k by dirichlet estimator: 357.32
+estimated k by gamma(1/4) estimator: 366.47
+
+rheMac3 - galGal4
+d: 410.0
+b: 463.0
+d/b 0.89
+p_odd: 28
+p_even: 22
+p_0: 2
+c: 1477
+c_not_2: 43
+n: 1898.0
+estimated k by unifotm estimator: 418.39
+estimated k by dirichlet estimator: 433.59
+estimated k by gamma(1/4) estimator: 445.19
+

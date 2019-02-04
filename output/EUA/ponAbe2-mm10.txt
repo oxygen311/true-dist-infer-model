@@ -1,0 +1,44 @@
+Allowed blocks: 1613 
+
+EUA - ponAbe2
+d: 72.0
+b: 101.0
+d/b 0.71
+p_odd: 10
+p_even: 46
+p_0: 36
+c: 1518
+c_not_2: 24
+n: 1613.0
+estimated k by unifotm estimator: 72.0
+estimated k by dirichlet estimator: 72.0
+estimated k by gamma(1/4) estimator: 71.93
+
+EUA - mm10
+d: 219.0
+b: 247.5
+d/b 0.88
+p_odd: 34
+p_even: 18
+p_0: 3
+c: 1385
+c_not_2: 21
+n: 1613.0
+estimated k by unifotm estimator: 223.4
+estimated k by dirichlet estimator: 231.42
+estimated k by gamma(1/4) estimator: 237.52
+
+ponAbe2 - mm10
+d: 280.0
+b: 325.5
+d/b 0.86
+p_odd: 28
+p_even: 16
+p_0: 3
+c: 1325
+c_not_2: 39
+n: 1613.0
+estimated k by unifotm estimator: 282.32
+estimated k by dirichlet estimator: 288.61
+estimated k by gamma(1/4) estimator: 293.69
+

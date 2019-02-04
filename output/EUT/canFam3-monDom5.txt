@@ -1,0 +1,44 @@
+Allowed blocks: 2069 
+
+EUT - canFam3
+d: 111.0
+b: 137.5
+d/b 0.81
+p_odd: 30
+p_even: 40
+p_0: 21
+c: 1938
+c_not_2: 17
+n: 2069.0
+estimated k by unifotm estimator: 110.97
+estimated k by dirichlet estimator: 111.54
+estimated k by gamma(1/4) estimator: 112.17
+
+EUT - monDom5
+d: 291.0
+b: 319.5
+d/b 0.91
+p_odd: 28
+p_even: 12
+p_0: 1
+c: 1772
+c_not_2: 23
+n: 2069.0
+estimated k by unifotm estimator: 303.29
+estimated k by dirichlet estimator: 320.44
+estimated k by gamma(1/4) estimator: 333.32
+
+canFam3 - monDom5
+d: 377.0
+b: 409.5
+d/b 0.92
+p_odd: 36
+p_even: 12
+p_0: 1
+c: 1686
+c_not_2: 27
+n: 2069.0
+estimated k by unifotm estimator: 397.61
+estimated k by dirichlet estimator: 424.24
+estimated k by gamma(1/4) estimator: 444.24
+

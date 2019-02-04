@@ -1,0 +1,44 @@
+Allowed blocks: 1835 
+
+EUT - bosTau7
+d: 150.0
+b: 212.5
+d/b 0.71
+p_odd: 21
+p_even: 40
+p_0: 19
+c: 1665
+c_not_2: 52
+n: 1835.0
+estimated k by unifotm estimator: 149.99
+estimated k by dirichlet estimator: 149.99
+estimated k by gamma(1/4) estimator: 149.87
+
+EUT - galGal4
+d: 329.0
+b: 373.0
+d/b 0.88
+p_odd: 34
+p_even: 26
+p_0: 4
+c: 1493
+c_not_2: 33
+n: 1835.0
+estimated k by unifotm estimator: 335.03
+estimated k by dirichlet estimator: 346.44
+estimated k by gamma(1/4) estimator: 355.21
+
+bosTau7 - galGal4
+d: 435.0
+b: 505.0
+d/b 0.86
+p_odd: 31
+p_even: 28
+p_0: 2
+c: 1386
+c_not_2: 57
+n: 1835.0
+estimated k by unifotm estimator: 438.78
+estimated k by dirichlet estimator: 448.79
+estimated k by gamma(1/4) estimator: 456.88
+

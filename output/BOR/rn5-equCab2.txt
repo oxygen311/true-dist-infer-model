@@ -1,0 +1,44 @@
+Allowed blocks: 2145 
+
+BOR - rn5
+d: 439.0
+b: 554.0
+d/b 0.79
+p_odd: 31
+p_even: 22
+p_0: 4
+c: 1695
+c_not_2: 106
+n: 2145.0
+estimated k by unifotm estimator: 438.75
+estimated k by dirichlet estimator: 439.94
+estimated k by gamma(1/4) estimator: 441.42
+
+BOR - equCab2
+d: 61.0
+b: 80.0
+d/b 0.76
+p_odd: 20
+p_even: 44
+p_0: 34
+c: 2062
+c_not_2: 14
+n: 2145.0
+estimated k by unifotm estimator: 60.98
+estimated k by dirichlet estimator: 61.0
+estimated k by gamma(1/4) estimator: 61.02
+
+rn5 - equCab2
+d: 473.0
+b: 591.0
+d/b 0.8
+p_odd: 37
+p_even: 16
+p_0: 2
+c: 1664
+c_not_2: 111
+n: 2145.0
+estimated k by unifotm estimator: 472.79
+estimated k by dirichlet estimator: 474.62
+estimated k by gamma(1/4) estimator: 476.87
+

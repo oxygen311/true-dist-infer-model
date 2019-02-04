@@ -1,0 +1,44 @@
+Allowed blocks: 2155 
+
+BOR - hg19
+d: 95.0
+b: 126.0
+d/b 0.75
+p_odd: 16
+p_even: 40
+p_0: 32
+c: 2040
+c_not_2: 27
+n: 2155.0
+estimated k by unifotm estimator: 94.98
+estimated k by dirichlet estimator: 95.01
+estimated k by gamma(1/4) estimator: 94.96
+
+BOR - capHir1
+d: 151.0
+b: 215.5
+d/b 0.7
+p_odd: 21
+p_even: 42
+p_0: 21
+c: 1983
+c_not_2: 54
+n: 2155.0
+estimated k by unifotm estimator: 151.0
+estimated k by dirichlet estimator: 151.01
+estimated k by gamma(1/4) estimator: 150.9
+
+hg19 - capHir1
+d: 219.0
+b: 309.0
+d/b 0.71
+p_odd: 13
+p_even: 40
+p_0: 18
+c: 1916
+c_not_2: 79
+n: 2155.0
+estimated k by unifotm estimator: 219.01
+estimated k by dirichlet estimator: 218.99
+estimated k by gamma(1/4) estimator: 218.8
+

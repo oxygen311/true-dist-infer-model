@@ -1,0 +1,44 @@
+Allowed blocks: 1927 
+
+EUT - equCab2
+d: 58.0
+b: 74.5
+d/b 0.78
+p_odd: 24
+p_even: 38
+p_0: 27
+c: 1850
+c_not_2: 11
+n: 1927.0
+estimated k by unifotm estimator: 57.97
+estimated k by dirichlet estimator: 58.04
+estimated k by gamma(1/4) estimator: 58.14
+
+EUT - galGal4
+d: 338.0
+b: 383.0
+d/b 0.88
+p_odd: 35
+p_even: 24
+p_0: 4
+c: 1577
+c_not_2: 35
+n: 1927.0
+estimated k by unifotm estimator: 344.29
+estimated k by dirichlet estimator: 356.11
+estimated k by gamma(1/4) estimator: 365.23
+
+equCab2 - galGal4
+d: 377.0
+b: 427.0
+d/b 0.88
+p_odd: 37
+p_even: 24
+p_0: 2
+c: 1538
+c_not_2: 39
+n: 1927.0
+estimated k by unifotm estimator: 384.12
+estimated k by dirichlet estimator: 397.41
+estimated k by gamma(1/4) estimator: 407.58
+

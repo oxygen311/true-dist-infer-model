@@ -1,0 +1,44 @@
+Allowed blocks: 576 
+
+SIM - panTro4
+d: 64.0
+b: 91.0
+d/b 0.7032967032967034
+p_odd: 11
+p_even: 46
+p_0: 40
+c: 489
+c_not_2: 24
+n: 576.0
+estimated k by unifotm estimator: 64.0
+estimated k by dirichlet estimator: 64.0
+estimated k by gamma(1/4) estimator: 63.94
+
+SIM - calJac3
+d: 93.0
+b: 126.0
+d/b 0.7380952380952381
+p_odd: 20
+p_even: 36
+p_0: 24
+c: 465
+c_not_2: 27
+n: 576.0
+estimated k by unifotm estimator: 93.0
+estimated k by dirichlet estimator: 93.0
+estimated k by gamma(1/4) estimator: 92.91
+
+panTro4 - calJac3
+d: 138.0
+b: 199.5
+d/b 0.6917293233082706
+p_odd: 11
+p_even: 36
+p_0: 23
+c: 420
+c_not_2: 55
+n: 576.0
+estimated k by unifotm estimator: 138.0
+estimated k by dirichlet estimator: 138.01
+estimated k by gamma(1/4) estimator: 137.91
+

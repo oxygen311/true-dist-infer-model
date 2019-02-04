@@ -1,0 +1,44 @@
+Allowed blocks: 2028 
+
+BOR - rheMac3
+d: 118.0
+b: 164.5
+d/b 0.72
+p_odd: 14
+p_even: 40
+p_0: 31
+c: 1890
+c_not_2: 42
+n: 2028.0
+estimated k by unifotm estimator: 118.0
+estimated k by dirichlet estimator: 118.0
+estimated k by gamma(1/4) estimator: 117.87
+
+BOR - bosTau7
+d: 173.0
+b: 254.5
+d/b 0.68
+p_odd: 21
+p_even: 42
+p_0: 19
+c: 1834
+c_not_2: 70
+n: 2028.0
+estimated k by unifotm estimator: 172.99
+estimated k by dirichlet estimator: 173.0
+estimated k by gamma(1/4) estimator: 172.92
+
+rheMac3 - bosTau7
+d: 264.0
+b: 379.5
+d/b 0.7
+p_odd: 11
+p_even: 40
+p_0: 17
+c: 1744
+c_not_2: 104
+n: 2028.0
+estimated k by unifotm estimator: 264.01
+estimated k by dirichlet estimator: 264.02
+estimated k by gamma(1/4) estimator: 263.81
+

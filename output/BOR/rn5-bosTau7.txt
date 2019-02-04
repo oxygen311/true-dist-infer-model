@@ -1,0 +1,44 @@
+Allowed blocks: 2020 
+
+BOR - rn5
+d: 428.0
+b: 539.0
+d/b 0.79
+p_odd: 31
+p_even: 22
+p_0: 4
+c: 1581
+c_not_2: 102
+n: 2020.0
+estimated k by unifotm estimator: 427.79
+estimated k by dirichlet estimator: 429.01
+estimated k by gamma(1/4) estimator: 430.62
+
+BOR - bosTau7
+d: 165.0
+b: 245.0
+d/b 0.67
+p_odd: 20
+p_even: 42
+p_0: 20
+c: 1834
+c_not_2: 69
+n: 2020.0
+estimated k by unifotm estimator: 165.0
+estimated k by dirichlet estimator: 164.99
+estimated k by gamma(1/4) estimator: 164.96
+
+rn5 - bosTau7
+d: 556.0
+b: 700.0
+d/b 0.79
+p_odd: 31
+p_even: 20
+p_0: 0
+c: 1454
+c_not_2: 134
+n: 2020.0
+estimated k by unifotm estimator: 555.69
+estimated k by dirichlet estimator: 557.29
+estimated k by gamma(1/4) estimator: 559.39
+

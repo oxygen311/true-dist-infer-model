@@ -1,0 +1,44 @@
+Allowed blocks: 2156 
+
+BOR - rheMac3
+d: 122.0
+b: 170.5
+d/b 0.72
+p_odd: 14
+p_even: 40
+p_0: 31
+c: 2014
+c_not_2: 44
+n: 2156.0
+estimated k by unifotm estimator: 122.0
+estimated k by dirichlet estimator: 122.0
+estimated k by gamma(1/4) estimator: 121.87
+
+BOR - canFam3
+d: 113.0
+b: 140.5
+d/b 0.8
+p_odd: 32
+p_even: 40
+p_0: 23
+c: 2023
+c_not_2: 19
+n: 2156.0
+estimated k by unifotm estimator: 112.96
+estimated k by dirichlet estimator: 113.48
+estimated k by gamma(1/4) estimator: 114.07
+
+rheMac3 - canFam3
+d: 213.0
+b: 283.5
+d/b 0.75
+p_odd: 26
+p_even: 34
+p_0: 15
+c: 1926
+c_not_2: 61
+n: 2156.0
+estimated k by unifotm estimator: 212.96
+estimated k by dirichlet estimator: 213.01
+estimated k by gamma(1/4) estimator: 212.87
+

@@ -1,0 +1,44 @@
+Allowed blocks: 2192 
+
+BOR - ponAbe2
+d: 80.0
+b: 105.5
+d/b 0.76
+p_odd: 15
+p_even: 42
+p_0: 33
+c: 2091
+c_not_2: 21
+n: 2192.0
+estimated k by unifotm estimator: 79.98
+estimated k by dirichlet estimator: 80.0
+estimated k by gamma(1/4) estimator: 79.99
+
+BOR - canFam3
+d: 113.0
+b: 140.5
+d/b 0.8
+p_odd: 32
+p_even: 40
+p_0: 23
+c: 2059
+c_not_2: 19
+n: 2192.0
+estimated k by unifotm estimator: 112.96
+estimated k by dirichlet estimator: 113.48
+estimated k by gamma(1/4) estimator: 114.07
+
+ponAbe2 - canFam3
+d: 170.0
+b: 218.0
+d/b 0.78
+p_odd: 29
+p_even: 34
+p_0: 16
+c: 2005
+c_not_2: 39
+n: 2192.0
+estimated k by unifotm estimator: 169.91
+estimated k by dirichlet estimator: 170.14
+estimated k by gamma(1/4) estimator: 170.47
+

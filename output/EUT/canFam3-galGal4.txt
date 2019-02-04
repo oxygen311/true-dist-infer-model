@@ -1,0 +1,44 @@
+Allowed blocks: 1933 
+
+EUT - canFam3
+d: 107.0
+b: 132.5
+d/b 0.81
+p_odd: 30
+p_even: 40
+p_0: 23
+c: 1806
+c_not_2: 17
+n: 1933.0
+estimated k by unifotm estimator: 106.98
+estimated k by dirichlet estimator: 107.52
+estimated k by gamma(1/4) estimator: 108.14
+
+EUT - galGal4
+d: 337.0
+b: 383.0
+d/b 0.88
+p_odd: 34
+p_even: 26
+p_0: 4
+c: 1583
+c_not_2: 35
+n: 1933.0
+estimated k by unifotm estimator: 342.78
+estimated k by dirichlet estimator: 354.01
+estimated k by gamma(1/4) estimator: 362.61
+
+canFam3 - galGal4
+d: 410.0
+b: 460.0
+d/b 0.89
+p_odd: 44
+p_even: 24
+p_0: 2
+c: 1511
+c_not_2: 39
+n: 1933.0
+estimated k by unifotm estimator: 420.03
+estimated k by dirichlet estimator: 436.93
+estimated k by gamma(1/4) estimator: 449.74
+

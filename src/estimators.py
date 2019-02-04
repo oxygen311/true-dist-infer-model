@@ -1,11 +1,13 @@
 import numpy as np
 from bisect import bisect
 from scipy import optimize
-from src.dirichlet_graph import DirichletDnkGraph
+from src.dirichlet_bp_graph import DirichletBPGraph
 import random
 from scipy.special import hyp2f1
 import math
 import json
+from scipy.special import gamma
+from src.cmrecur import b_gamma, d_gamma
 
 
 # predict value of x or y relying on certain data
@@ -101,14 +103,13 @@ class TannierEstimator:
 
         b = get_b_from_cycles(cycles)
         d = get_d_from_cycles(cycles)
-        c2 = cycles.get('2', 0)
+        c2 = cycles.get('2', cycles.get(2, 0))
 
         fun = create_fun(b, c2)
         prediction = optimize.root(fun, np.array([3 * b, d]), jac=jac, method='hybr')
 
         # print(prediction)
         return prediction.x[0], prediction.x[1]
-
 
     def predict_k(self, cycles):
         return self.predict(cycles)[1]
@@ -122,10 +123,13 @@ class DBFunctionEstimator:
         raise NotImplementedError('subclasses must override b_over_n!')
 
     def predict(self, cycles):
-        d_over_b = lambda r: lambda x: self.d_over_n(x) / self.b_over_n(x) - r
-
         d = get_d_from_cycles(cycles)
         b = get_b_from_cycles(cycles)
+
+        return self.predict_by_db(d, b)
+
+    def predict_by_db(self, d, b):
+        d_over_b = lambda r: lambda x: self.d_over_n(x) / self.b_over_n(x) - r
 
         x = optimize.bisect(d_over_b(d / b), 1e-6, 3, xtol=1e-4)
 
@@ -133,11 +137,57 @@ class DBFunctionEstimator:
         n = b / b_n
         return n, n * x / 2
 
+    def predict_k(self, cycles):
+        return self.predict(cycles)[1]
+
+    def predict_k_by_db(self, d, b):
+        return self.predict_by_db(d, b)[1]
+
+
+class GammaEstimator(DBFunctionEstimator):
+    def __init__(self, t, mx=50):
+        self.t = t
+        self.mx = mx
+
+    def d_over_n(self, x):
+        return d_gamma(self.t, self.mx)(x)
+
+    def b_over_n(self, x):
+        return b_gamma(self.t)(x)
+
+
+class CmBFunctionGammaEstimator:
+    def __init__(self, t, cms=6):
+        self.t = t
+        self.cms = cms
+
+    def predict(self, cycles):
+        get_cms_from_cycles = lambda cms: lambda c: np.sum([c.get(m, 0) * m for m in range(2, cms)])
+
+        c_m_gamma = lambda t, m: lambda x: x ** (m - 1) * (t ** (t + 1)) ** m / (x + t) ** (m * t + 2 * m - 2) * gamma(
+            m * t + 2 * m - 2) / gamma(m * t + m) / gamma(m + 1)
+        b_over_n = lambda t: lambda x: 1 - c_m_gamma(t, 1)(x)
+        cms_sum = lambda t, cms: lambda x: np.sum([c_m_gamma(t, m)(x) * m for m in range(2, cms)]) / b_over_n(t)(x)
+        c_over_b = lambda r, t, cms: lambda x: cms_sum(t, cms)(x) - r
+
+        c = get_cms_from_cycles(self.cms)(cycles)
+        b = get_b_from_cycles(cycles)
+
+        # print(c/b, c_over_b(c/b, self.t, self.cms)(1e-1), c_over_b(c/b, self.t, self.cms)(3))
+        x = optimize.bisect(c_over_b(c / b, self.t, self.cms), 1e-6, 3, xtol=1e-4)
+
+        b_n = b_over_n(self.t)(x)
+        n = b / b_n
+        return n, n * x / 2
+
+    def predict_k(self, cycles):
+        return self.predict(cycles)[1]
+
 
 class DirichletEstimator(DBFunctionEstimator):
     def __init__(self):
         # super.__init__()
-        self.err = json.loads(open("data/dirichlet_d_error.txt", 'r').read())
+        self.err = json.loads(open("sim_data/dirichlet_d_error.txt", 'r').read())
 
     def d_over_n(self, x):
         return 1 - (1 + x) ** 2 * (hyp2f1(-2 / 3, -1 / 3, 1 / 2, 27 * x / (4 * (1 + x) ** 3)) - 1) / (3 * x)
@@ -145,30 +195,45 @@ class DirichletEstimator(DBFunctionEstimator):
     def b_over_n(self, x):
         return x / (1 + x)
 
-    def predict(self, cycles):
-        def d_over_n_with_n(n):
-            def ret_func(x):
-                ret = 1 - (1 + x) ** 2 * (hyp2f1(-2 / 3, -1 / 3, 1 / 2, 27 * x / (4 * (1 + x) ** 3)) - 1) / (3 * x)
-                ret -= self.err[int(x * 100)] / math.sqrt(n) / 2
-                return ret
 
-            return ret_func
+class CorrectedDirichletEstimator(DirichletEstimator):
+    def predict_by_db(self, d, b):
+        n, k = super().predict_by_db(d, b)
+        x = 2 * k / n
+        print(d)
 
-        d_over_b = lambda r: lambda x: self.d_over_n(x) / self.b_over_n(x) - r
+        if x >= 0.5:
+            d += 1567/1e6 * n
 
-        d = get_d_from_cycles(cycles)
-        b = get_b_from_cycles(cycles)
+        print(d)
+        return super().predict_by_db(d, b)
 
-        x = optimize.bisect(d_over_b(d / b), 1e-6, 3, xtol=1e-4)
-        n = b / self.b_over_n(x)
 
-        new_d_over_n_func = d_over_n_with_n(n)
-        new_d_over_b_func = lambda r: lambda x: new_d_over_n_func(x) / self.b_over_n(x) - r
 
-        x2 = optimize.bisect(new_d_over_b_func(d / b), 1e-6, 3, xtol=1e-4)
-
-        # return n * (x + x2) / 2 / 2
-        return n, n * x / 2
+    # def predict(self, cycles):
+    #     # def d_over_n_with_n(n):
+    #     #     def ret_func(x):
+    #     #         ret = 1 - (1 + x) ** 2 * (hyp2f1(-2 / 3, -1 / 3, 1 / 2, 27 * x / (4 * (1 + x) ** 3)) - 1) / (3 * x)
+    #     #         ret -= self.err[int(x * 100)] / math.sqrt(n) / 2
+    #     #         return ret
+    #     #
+    #     #     return ret_func
+    #
+    #     d_over_b = lambda r: lambda x: self.d_over_n(x) / self.b_over_n(x) - r
+    #
+    #     d = get_d_from_cycles(cycles)
+    #     b = get_b_from_cycles(cycles)
+    #
+    #     x = optimize.bisect(d_over_b(d / b), 1e-6, 3, xtol=1e-4)
+    #     n = b / self.b_over_n(x)
+    #
+    #     # new_d_over_n_func = d_over_n_with_n(n)
+    #     # new_d_over_b_func = lambda r: lambda x: new_d_over_n_func(x) / self.b_over_n(x) - r
+    #
+    #     # x2 = optimize.bisect(new_d_over_b_func(d / b), 1e-6, 3, xtol=1e-4)
+    #
+    #     # return n * (x + x2) / 2 / 2
+    #     return n, n * x / 2
 
 
 class UniformEstimator(DBFunctionEstimator):
@@ -209,7 +274,7 @@ class FirstCmsDirEstimator:
                 return [x[0] - e_c_m(x[0], x[1], 1) - real_b,
                         sum(
                             ((e_c_m(x[0], x[1], m) - cycles[str(m)]) if str(m) in cycles else 0) / self.cm_err[m]
-                            for m in range(2, self. max_m)
+                            for m in range(2, self.max_m)
                         )]
 
             return fun
@@ -237,25 +302,42 @@ class FirstCmsDirEstimator:
 
 without_c1 = lambda g: {str(k): v for k, v in g.items() if k != 1}
 
+
+class MoretEstimator:
+    def b_over_n(self, x):
+        return 1 - math.exp(- x)
+
+    def predict_k_by_bn(self, b, n):
+        b_over_n = lambda r: lambda x: self.b_over_n(x) - r
+
+        x = optimize.bisect(b_over_n(b / n), 1e-6, 3, xtol=1e-4)
+        return n * x / 2
+
+
 if __name__ == "__main__":
-    # dirichlet_data = json.loads(open("data/dirichlet_data_randomN_200.txt", 'r').read())
-    # dataEst = DataEstimator(dirichlet_data)
-    tanEst = TannierEstimator()
-    dirEst = DirichletEstimator()
-    # testDirEst = TestDirEstimator(2)
-    random.seed(42)
-    np.random.seed(42)
+    e1 = DirichletEstimator()
+    e2 = CorrectedDirichletEstimator()
+    print(e1.predict_by_db(100, 120))
+    print(e2.predict_by_db(100, 120))
 
-    n = 1000
-    k = 500
-
-    g = DirichletDnkGraph(n)
-    for k in range(k):
-        g.do_k_break()
-
-    print("breaks done")
-
-    cycles = without_c1(g.count_cycles())
-    # print(testDirEst.predict_k(cycles))
-    # print(tanEst.predict_k(cycles))
-    # print(dataEst.predict_k(cycles))
+#     # dirichlet_data = json.loads(open("data/dirichlet_data_randomN_200.txt", 'r').read())
+#     # dataEst = DataEstimator(dirichlet_data)
+#     tanEst = TannierEstimator()
+#     dirEst = DirichletEstimator()
+#     # testDirEst = TestDirEstimator(2)
+#     random.seed(42)
+#     np.random.seed(42)
+#
+#     n = 1000
+#     k = 500
+#
+#     g = DirichletBPGraph(n)
+#     for k in range(k):
+#         g.do_k_break()
+#
+#     print("breaks done")
+#
+#     cycles = without_c1(g.count_cycles())
+#     # print(testDirEst.predict_k(cycles))
+#     # print(tanEst.predict_k(cycles))
+#     # print(dataEst.predict_k(cycles))

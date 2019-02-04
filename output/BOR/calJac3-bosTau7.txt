@@ -1,0 +1,44 @@
+Allowed blocks: 2053 
+
+BOR - calJac3
+d: 110.0
+b: 146.0
+d/b 0.75
+p_odd: 20
+p_even: 36
+p_0: 22
+c: 1925
+c_not_2: 29
+n: 2053.0
+estimated k by unifotm estimator: 109.98
+estimated k by dirichlet estimator: 110.01
+estimated k by gamma(1/4) estimator: 109.95
+
+BOR - bosTau7
+d: 173.0
+b: 254.5
+d/b 0.68
+p_odd: 21
+p_even: 42
+p_0: 19
+c: 1859
+c_not_2: 70
+n: 2053.0
+estimated k by unifotm estimator: 172.99
+estimated k by dirichlet estimator: 173.0
+estimated k by gamma(1/4) estimator: 172.92
+
+calJac3 - bosTau7
+d: 256.0
+b: 358.5
+d/b 0.71
+p_odd: 19
+p_even: 34
+p_0: 11
+c: 1780
+c_not_2: 91
+n: 2053.0
+estimated k by unifotm estimator: 255.99
+estimated k by dirichlet estimator: 256.0
+estimated k by gamma(1/4) estimator: 255.73
+

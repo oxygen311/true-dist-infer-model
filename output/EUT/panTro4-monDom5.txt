@@ -1,0 +1,44 @@
+Allowed blocks: 2048 
+
+EUT - panTro4
+d: 92.0
+b: 125.0
+d/b 0.74
+p_odd: 17
+p_even: 38
+p_0: 26
+c: 1937
+c_not_2: 27
+n: 2048.0
+estimated k by unifotm estimator: 92.0
+estimated k by dirichlet estimator: 92.0
+estimated k by gamma(1/4) estimator: 91.9
+
+EUT - monDom5
+d: 292.0
+b: 320.5
+d/b 0.91
+p_odd: 28
+p_even: 12
+p_0: 1
+c: 1750
+c_not_2: 23
+n: 2048.0
+estimated k by unifotm estimator: 304.44
+estimated k by dirichlet estimator: 321.74
+estimated k by gamma(1/4) estimator: 334.71
+
+panTro4 - monDom5
+d: 361.0
+b: 393.5
+d/b 0.92
+p_odd: 21
+p_even: 12
+p_0: 1
+c: 1681
+c_not_2: 27
+n: 2048.0
+estimated k by unifotm estimator: 379.16
+estimated k by dirichlet estimator: 403.2
+estimated k by gamma(1/4) estimator: 421.19
+

@@ -1,0 +1,44 @@
+Allowed blocks: 1929 
+
+EUT - ponAbe2
+d: 73.0
+b: 95.0
+d/b 0.77
+p_odd: 17
+p_even: 38
+p_0: 30
+c: 1837
+c_not_2: 18
+n: 1929.0
+estimated k by unifotm estimator: 72.97
+estimated k by dirichlet estimator: 73.01
+estimated k by gamma(1/4) estimator: 73.06
+
+EUT - galGal4
+d: 339.0
+b: 384.0
+d/b 0.88
+p_odd: 36
+p_even: 24
+p_0: 4
+c: 1578
+c_not_2: 35
+n: 1929.0
+estimated k by unifotm estimator: 345.39
+estimated k by dirichlet estimator: 357.32
+estimated k by gamma(1/4) estimator: 366.47
+
+ponAbe2 - galGal4
+d: 375.0
+b: 422.0
+d/b 0.89
+p_odd: 27
+p_even: 26
+p_0: 2
+c: 1541
+c_not_2: 35
+n: 1929.0
+estimated k by unifotm estimator: 383.46
+estimated k by dirichlet estimator: 398.17
+estimated k by gamma(1/4) estimator: 409.41
+

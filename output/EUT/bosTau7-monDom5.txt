@@ -1,0 +1,44 @@
+Allowed blocks: 1955 
+
+EUT - bosTau7
+d: 161.0
+b: 226.5
+d/b 0.71
+p_odd: 25
+p_even: 36
+p_0: 17
+c: 1776
+c_not_2: 56
+n: 1955.0
+estimated k by unifotm estimator: 161.0
+estimated k by dirichlet estimator: 161.0
+estimated k by gamma(1/4) estimator: 160.84
+
+EUT - monDom5
+d: 285.0
+b: 310.5
+d/b 0.92
+p_odd: 30
+p_even: 10
+p_0: 1
+c: 1665
+c_not_2: 21
+n: 1955.0
+estimated k by unifotm estimator: 299.5
+estimated k by dirichlet estimator: 318.63
+estimated k by gamma(1/4) estimator: 333.02
+
+bosTau7 - monDom5
+d: 402.0
+b: 454.5
+d/b 0.88
+p_odd: 29
+p_even: 10
+p_0: 1
+c: 1548
+c_not_2: 48
+n: 1955.0
+estimated k by unifotm estimator: 409.98
+estimated k by dirichlet estimator: 424.59
+estimated k by gamma(1/4) estimator: 435.76
+

@@ -1,0 +1,13 @@
+panTro4: a=0.311, blocks=47, ks_2samp=0.466, kstest=0.177
+ponAbe2: a=0.352, blocks=66, ks_2samp=0.291, kstest=0.300
+rheMac3: a=0.281, blocks=165, ks_2samp=0.402, kstest=0.009
+calJac3: a=0.314, blocks=182, ks_2samp=0.012, kstest=0.004
+mm10: a=0.407, blocks=332, ks_2samp=0.292, kstest=0.001
+rn5: a=0.357, blocks=616, ks_2samp=0.082, kstest=0.026
+bosTau7: a=0.339, blocks=349, ks_2samp=0.004, kstest=0.002
+capHir1: a=0.342, blocks=315, ks_2samp=0.024, kstest=0.001
+susScr3: a=0.341, blocks=307, ks_2samp=0.000, kstest=0.000
+equCab2: a=0.340, blocks=200, ks_2samp=0.003, kstest=0.006
+canFam3: a=0.360, blocks=246, ks_2samp=0.221, kstest=0.044
+monDom5: a=0.420, blocks=398, ks_2samp=0.001, kstest=0.000
+galGal4: a=0.438, blocks=429, ks_2samp=0.000, kstest=0.000

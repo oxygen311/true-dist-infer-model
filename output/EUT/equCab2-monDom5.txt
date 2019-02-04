@@ -1,0 +1,44 @@
+Allowed blocks: 2066 
+
+EUT - equCab2
+d: 61.0
+b: 78.0
+d/b 0.78
+p_odd: 25
+p_even: 38
+p_0: 28
+c: 1986
+c_not_2: 12
+n: 2066.0
+estimated k by unifotm estimator: 60.97
+estimated k by dirichlet estimator: 61.06
+estimated k by gamma(1/4) estimator: 61.19
+
+EUT - monDom5
+d: 291.0
+b: 319.5
+d/b 0.91
+p_odd: 28
+p_even: 12
+p_0: 1
+c: 1769
+c_not_2: 23
+n: 2066.0
+estimated k by unifotm estimator: 303.29
+estimated k by dirichlet estimator: 320.44
+estimated k by gamma(1/4) estimator: 333.32
+
+equCab2 - monDom5
+d: 332.0
+b: 367.0
+d/b 0.9
+p_odd: 29
+p_even: 12
+p_0: 0
+c: 1728
+c_not_2: 29
+n: 2066.0
+estimated k by unifotm estimator: 343.88
+estimated k by dirichlet estimator: 361.36
+estimated k by gamma(1/4) estimator: 374.53
+

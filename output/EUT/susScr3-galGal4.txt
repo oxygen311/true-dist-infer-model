@@ -1,0 +1,44 @@
+Allowed blocks: 1900 
+
+EUT - susScr3
+d: 148.0
+b: 196.5
+d/b 0.75
+p_odd: 22
+p_even: 28
+p_0: 15
+c: 1738
+c_not_2: 42
+n: 1900.0
+estimated k by unifotm estimator: 147.97
+estimated k by dirichlet estimator: 148.0
+estimated k by gamma(1/4) estimator: 147.94
+
+EUT - galGal4
+d: 332.0
+b: 377.0
+d/b 0.88
+p_odd: 34
+p_even: 26
+p_0: 4
+c: 1555
+c_not_2: 34
+n: 1900.0
+estimated k by unifotm estimator: 337.82
+estimated k by dirichlet estimator: 349.05
+estimated k by gamma(1/4) estimator: 357.7
+
+susScr3 - galGal4
+d: 440.0
+b: 497.5
+d/b 0.88
+p_odd: 24
+p_even: 24
+p_0: 3
+c: 1448
+c_not_2: 47
+n: 1900.0
+estimated k by unifotm estimator: 448.7
+estimated k by dirichlet estimator: 464.67
+estimated k by gamma(1/4) estimator: 476.9
+

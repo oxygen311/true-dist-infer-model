@@ -1,0 +1,43 @@
+Allowed blocks: 435 
+
+CAT - ponAbe2
+d: 27.0
+b: 36.0
+d/b 0.75
+p_odd: 6
+p_even: 48
+p_0: 44
+c: 384
+c_not_2: 7
+n: 435.0
+estimated k by unifotm estimator: 27.0
+estimated k by dirichlet estimator: 27.0
+estimated k by gamma(1/4) estimator: 26.98
+
+CAT - rheMac3
+d: 83.0
+b: 123.5
+d/b 0.6720647773279352
+p_odd: 9
+p_even: 42
+p_0: 39
+c: 331
+c_not_2: 39
+n: 435.0
+estimated k by unifotm estimator: 83.0
+estimated k by dirichlet estimator: 83.0
+estimated k by gamma(1/4) estimator: 82.98
+
+ponAbe2 - rheMac3
+d: 100.0
+b: 151.5
+d/b 0.6600660066006601
+p_odd: 5
+p_even: 40
+p_0: 35
+c: 315
+c_not_2: 49
+n: 435.0
+estimated k by unifotm estimator: 100.0
+estimated k by dirichlet estimator: 100.0
+estimated k by gamma(1/4) estimator: 99.98

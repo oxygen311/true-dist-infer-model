@@ -1,0 +1,44 @@
+Allowed blocks: 590 
+
+SIM - ponAbe2
+d: 48.0
+b: 65.0
+d/b 0.7384615384615385
+p_odd: 11
+p_even: 46
+p_0: 42
+c: 519
+c_not_2: 15
+n: 590.0
+estimated k by unifotm estimator: 48.0
+estimated k by dirichlet estimator: 48.0
+estimated k by gamma(1/4) estimator: 47.94
+
+SIM - calJac3
+d: 92.0
+b: 125.0
+d/b 0.736
+p_odd: 20
+p_even: 36
+p_0: 24
+c: 480
+c_not_2: 27
+n: 590.0
+estimated k by unifotm estimator: 92.0
+estimated k by dirichlet estimator: 92.0
+estimated k by gamma(1/4) estimator: 91.9
+
+ponAbe2 - calJac3
+d: 123.0
+b: 174.0
+d/b 0.7068965517241379
+p_odd: 11
+p_even: 36
+p_0: 24
+c: 449
+c_not_2: 45
+n: 590.0
+estimated k by unifotm estimator: 123.0
+estimated k by dirichlet estimator: 122.99
+estimated k by gamma(1/4) estimator: 122.89
+

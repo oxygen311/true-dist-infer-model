@@ -1,0 +1,44 @@
+Allowed blocks: 1896 
+
+EUT - capHir1
+d: 139.0
+b: 188.5
+d/b 0.74
+p_odd: 23
+p_even: 38
+p_0: 19
+c: 1738
+c_not_2: 40
+n: 1896.0
+estimated k by unifotm estimator: 138.99
+estimated k by dirichlet estimator: 139.01
+estimated k by gamma(1/4) estimator: 138.84
+
+EUT - galGal4
+d: 332.0
+b: 378.0
+d/b 0.88
+p_odd: 32
+p_even: 28
+p_0: 4
+c: 1550
+c_not_2: 34
+n: 1896.0
+estimated k by unifotm estimator: 337.4
+estimated k by dirichlet estimator: 348.11
+estimated k by gamma(1/4) estimator: 356.41
+
+capHir1 - galGal4
+d: 423.0
+b: 487.5
+d/b 0.87
+p_odd: 35
+p_even: 24
+p_0: 1
+c: 1461
+c_not_2: 53
+n: 1896.0
+estimated k by unifotm estimator: 427.72
+estimated k by dirichlet estimator: 438.81
+estimated k by gamma(1/4) estimator: 447.61
+

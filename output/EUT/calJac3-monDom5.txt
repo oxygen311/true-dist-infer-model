@@ -1,0 +1,44 @@
+Allowed blocks: 2057 
+
+EUT - calJac3
+d: 106.0
+b: 138.5
+d/b 0.77
+p_odd: 22
+p_even: 32
+p_0: 19
+c: 1935
+c_not_2: 26
+n: 2057.0
+estimated k by unifotm estimator: 105.96
+estimated k by dirichlet estimator: 106.02
+estimated k by gamma(1/4) estimator: 106.05
+
+EUT - monDom5
+d: 288.0
+b: 318.5
+d/b 0.9
+p_odd: 28
+p_even: 12
+p_0: 1
+c: 1763
+c_not_2: 25
+n: 2057.0
+estimated k by unifotm estimator: 298.21
+estimated k by dirichlet estimator: 313.26
+estimated k by gamma(1/4) estimator: 324.57
+
+calJac3 - monDom5
+d: 361.0
+b: 408.0
+d/b 0.88
+p_odd: 20
+p_even: 12
+p_0: 0
+c: 1690
+c_not_2: 41
+n: 2057.0
+estimated k by unifotm estimator: 368.24
+estimated k by dirichlet estimator: 381.41
+estimated k by gamma(1/4) estimator: 391.55
+

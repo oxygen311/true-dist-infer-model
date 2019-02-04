@@ -1,0 +1,44 @@
+Allowed blocks: 2046 
+
+BOR - panTro4
+d: 93.0
+b: 127.5
+d/b 0.73
+p_odd: 15
+p_even: 42
+p_0: 33
+c: 1932
+c_not_2: 30
+n: 2046.0
+estimated k by unifotm estimator: 92.99
+estimated k by dirichlet estimator: 93.0
+estimated k by gamma(1/4) estimator: 92.9
+
+BOR - bosTau7
+d: 171.0
+b: 251.5
+d/b 0.68
+p_odd: 21
+p_even: 42
+p_0: 19
+c: 1854
+c_not_2: 69
+n: 2046.0
+estimated k by unifotm estimator: 171.0
+estimated k by dirichlet estimator: 171.01
+estimated k by gamma(1/4) estimator: 170.93
+
+panTro4 - bosTau7
+d: 240.0
+b: 343.5
+d/b 0.7
+p_odd: 14
+p_even: 40
+p_0: 17
+c: 1786
+c_not_2: 92
+n: 2046.0
+estimated k by unifotm estimator: 239.99
+estimated k by dirichlet estimator: 240.01
+estimated k by gamma(1/4) estimator: 239.83
+

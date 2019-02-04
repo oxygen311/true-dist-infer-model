@@ -1,0 +1,43 @@
+Allowed blocks: 550 
+
+SIM - rheMac3
+d: 102.0
+b: 145.5
+d/b 0.7010309278350515
+p_odd: 14
+p_even: 40
+p_0: 33
+c: 428
+c_not_2: 40
+n: 550.0
+estimated k by unifotm estimator: 102.0
+estimated k by dirichlet estimator: 102.0
+estimated k by gamma(1/4) estimator: 101.91
+
+SIM - calJac3
+d: 90.0
+b: 122.5
+d/b 0.7346938775510204
+p_odd: 20
+p_even: 36
+p_0: 25
+c: 442
+c_not_2: 27
+n: 550.0
+estimated k by unifotm estimator: 89.99
+estimated k by dirichlet estimator: 90.0
+estimated k by gamma(1/4) estimator: 89.89
+
+rheMac3 - calJac3
+d: 172.0
+b: 245.0
+d/b 0.7020408163265306
+p_odd: 10
+p_even: 34
+p_0: 22
+c: 361
+c_not_2: 67
+n: 550.0
+estimated k by unifotm estimator: 172.0
+estimated k by dirichlet estimator: 171.99
+estimated k by gamma(1/4) estimator: 171.85

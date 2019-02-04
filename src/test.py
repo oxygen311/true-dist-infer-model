@@ -1,6 +1,9 @@
 import numpy as np
 import json
+import sys
 
+
+print(sys.path)
 # dmp = json.loads(open("data/est.txt", 'r').read())
 dmp = json.loads(open("data/tan_est.txt", 'r').read())
 

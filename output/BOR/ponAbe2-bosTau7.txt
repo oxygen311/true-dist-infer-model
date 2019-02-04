@@ -1,0 +1,44 @@
+Allowed blocks: 2063 
+
+BOR - ponAbe2
+d: 78.0
+b: 102.5
+d/b 0.76
+p_odd: 15
+p_even: 42
+p_0: 33
+c: 1964
+c_not_2: 20
+n: 2063.0
+estimated k by unifotm estimator: 77.98
+estimated k by dirichlet estimator: 78.0
+estimated k by gamma(1/4) estimator: 78.0
+
+BOR - bosTau7
+d: 173.0
+b: 254.5
+d/b 0.68
+p_odd: 21
+p_even: 42
+p_0: 19
+c: 1869
+c_not_2: 70
+n: 2063.0
+estimated k by unifotm estimator: 172.99
+estimated k by dirichlet estimator: 173.0
+estimated k by gamma(1/4) estimator: 172.92
+
+ponAbe2 - bosTau7
+d: 225.0
+b: 324.5
+d/b 0.69
+p_odd: 14
+p_even: 40
+p_0: 17
+c: 1818
+c_not_2: 88
+n: 2063.0
+estimated k by unifotm estimator: 225.0
+estimated k by dirichlet estimator: 225.01
+estimated k by gamma(1/4) estimator: 224.85
+

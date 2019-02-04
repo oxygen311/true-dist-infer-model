@@ -1,0 +1,44 @@
+Allowed blocks: 1936 
+
+EUT - hg19
+d: 81.0
+b: 107.0
+d/b 0.76
+p_odd: 16
+p_even: 38
+p_0: 28
+c: 1836
+c_not_2: 21
+n: 1936.0
+estimated k by unifotm estimator: 80.98
+estimated k by dirichlet estimator: 81.0
+estimated k by gamma(1/4) estimator: 80.98
+
+EUT - galGal4
+d: 339.0
+b: 384.0
+d/b 0.88
+p_odd: 36
+p_even: 24
+p_0: 4
+c: 1585
+c_not_2: 35
+n: 1936.0
+estimated k by unifotm estimator: 345.39
+estimated k by dirichlet estimator: 357.32
+estimated k by gamma(1/4) estimator: 366.47
+
+hg19 - galGal4
+d: 383.0
+b: 430.0
+d/b 0.89
+p_odd: 28
+p_even: 24
+p_0: 2
+c: 1541
+c_not_2: 36
+n: 1936.0
+estimated k by unifotm estimator: 392.21
+estimated k by dirichlet estimator: 407.8
+estimated k by gamma(1/4) estimator: 419.7
+

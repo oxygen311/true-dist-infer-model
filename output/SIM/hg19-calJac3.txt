@@ -1,0 +1,44 @@
+Allowed blocks: 604 
+
+SIM - hg19
+d: 64.0
+b: 88.5
+d/b 0.7231638418079096
+p_odd: 12
+p_even: 44
+p_0: 39
+c: 518
+c_not_2: 22
+n: 604.0
+estimated k by unifotm estimator: 64.0
+estimated k by dirichlet estimator: 64.0
+estimated k by gamma(1/4) estimator: 63.93
+
+SIM - calJac3
+d: 93.0
+b: 126.0
+d/b 0.7380952380952381
+p_odd: 20
+p_even: 36
+p_0: 24
+c: 493
+c_not_2: 27
+n: 604.0
+estimated k by unifotm estimator: 93.0
+estimated k by dirichlet estimator: 93.0
+estimated k by gamma(1/4) estimator: 92.91
+
+hg19 - calJac3
+d: 139.0
+b: 197.5
+d/b 0.7037974683544304
+p_odd: 12
+p_even: 34
+p_0: 23
+c: 448
+c_not_2: 53
+n: 604.0
+estimated k by unifotm estimator: 139.0
+estimated k by dirichlet estimator: 139.01
+estimated k by gamma(1/4) estimator: 138.89
+

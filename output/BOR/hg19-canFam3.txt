@@ -1,0 +1,44 @@
+Allowed blocks: 2203 
+
+BOR - hg19
+d: 96.0
+b: 128.0
+d/b 0.75
+p_odd: 16
+p_even: 40
+p_0: 32
+c: 2087
+c_not_2: 28
+n: 2203.0
+estimated k by unifotm estimator: 95.99
+estimated k by dirichlet estimator: 96.0
+estimated k by gamma(1/4) estimator: 95.94
+
+BOR - canFam3
+d: 113.0
+b: 140.5
+d/b 0.8
+p_odd: 32
+p_even: 40
+p_0: 23
+c: 2070
+c_not_2: 19
+n: 2203.0
+estimated k by unifotm estimator: 112.96
+estimated k by dirichlet estimator: 113.48
+estimated k by gamma(1/4) estimator: 114.07
+
+hg19 - canFam3
+d: 188.0
+b: 239.0
+d/b 0.79
+p_odd: 30
+p_even: 32
+p_0: 16
+c: 1999
+c_not_2: 43
+n: 2203.0
+estimated k by unifotm estimator: 187.89
+estimated k by dirichlet estimator: 188.26
+estimated k by gamma(1/4) estimator: 188.8
+

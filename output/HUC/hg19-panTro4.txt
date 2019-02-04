@@ -1,0 +1,43 @@
+Allowed blocks: 142 
+
+HUC - hg19
+d: 17.0
+b: 19.5
+d/b 0.8717948717948718
+p_odd: 11
+p_even: 44
+p_0: 43
+c: 103
+c_not_2: 2
+n: 142.0
+estimated k by unifotm estimator: 17.22
+estimated k by dirichlet estimator: 17.7
+estimated k by gamma(1/4) estimator: 18.08
+
+HUC - panTro4
+d: 33.0
+b: 47.0
+d/b 0.7021276595744681
+p_odd: 10
+p_even: 46
+p_0: 46
+c: 86
+c_not_2: 14
+n: 142.0
+estimated k by unifotm estimator: 33.0
+estimated k by dirichlet estimator: 33.0
+estimated k by gamma(1/4) estimator: 32.98
+
+hg19 - panTro4
+d: 31.0
+b: 52.5
+d/b 0.5904761904761905
+p_odd: 1
+p_even: 44
+p_0: 43
+c: 89
+c_not_2: 21
+n: 142.0
+estimated k by unifotm estimator: 31.0
+estimated k by dirichlet estimator: 31.0
+estimated k by gamma(1/4) estimator: 31.0

@@ -2,7 +2,7 @@ from sklearn import linear_model, ensemble, neighbors
 import json
 import random
 import numpy as np
-from src.dirichlet_graph import DirichletDnkGraph
+from src.dirichlet_bp_graph import DirichletBPGraph
 from src.estimators import get_b_from_cycles, get_d_from_cycles
 
 
@@ -69,7 +69,7 @@ def main():
     n = 3000
     k = 1000
 
-    g = DirichletDnkGraph(n)
+    g = DirichletBPGraph(n)
     for k in range(k):
         g.do_k_break()
 

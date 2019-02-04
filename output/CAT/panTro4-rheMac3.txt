@@ -1,0 +1,44 @@
+Allowed blocks: 426 
+
+CAT - panTro4
+d: 49.0
+b: 73.5
+d/b 0.6666666666666666
+p_odd: 8
+p_even: 48
+p_0: 41
+c: 353
+c_not_2: 21
+n: 426.0
+estimated k by unifotm estimator: 49.0
+estimated k by dirichlet estimator: 49.0
+estimated k by gamma(1/4) estimator: 48.99
+
+CAT - rheMac3
+d: 82.0
+b: 120.5
+d/b 0.6804979253112033
+p_odd: 11
+p_even: 42
+p_0: 39
+c: 323
+c_not_2: 37
+n: 426.0
+estimated k by unifotm estimator: 82.0
+estimated k by dirichlet estimator: 82.0
+estimated k by gamma(1/4) estimator: 81.97
+
+panTro4 - rheMac3
+d: 112.0
+b: 175.5
+d/b 0.6381766381766382
+p_odd: 5
+p_even: 40
+p_0: 33
+c: 294
+c_not_2: 60
+n: 426.0
+estimated k by unifotm estimator: 112.0
+estimated k by dirichlet estimator: 112.0
+estimated k by gamma(1/4) estimator: 111.99
+
