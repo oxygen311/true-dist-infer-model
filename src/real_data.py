@@ -1,7 +1,7 @@
 import networkx as nx
 from collections import defaultdict
 from src.estimators import DirichletEstimator, TannierEstimator, get_d_from_cycles, get_b_from_cycles, DataEstimator, \
-    UniformEstimator, FirstCmsDirEstimator, CmBFunctionGammaEstimator, GammaEstimator
+    UniformEstimator, FirstCmsDirEstimator, CmBFunctionGammaEstimator, GammaEstimator, CorrectedGammaEstimator
 from itertools import combinations
 from os import listdir
 import numpy as np
@@ -114,7 +114,7 @@ class RealDataGraph(nx.MultiGraph):
         assert all(map(lambda v: v[1] <= 2, self.degree))
 
     def b(self):
-        b = 0.0
+        b = 0.
         for component in nx.connected_component_subgraphs(self):
             if len(component) > 2 or (len(component) == 2 and len(component.edges) == 1):
                 b += len(component) / 2
@@ -176,7 +176,7 @@ class RealDataGraph(nx.MultiGraph):
         return self.count_components(lambda c: len(c) == len(c.edges) and len(c) != 2)
 
     def n(self):
-        return len(self) / 2
+        return len(self) // 2
 
     def d(self):
         return self.n() - self.c() - self.p_even() // 2
@@ -211,6 +211,7 @@ if __name__ == "__main__":
 
     dirEst = DirichletEstimator()
     gammaEst = GammaEstimator(0.3)
+    corGammaEst = CorrectedGammaEstimator(0.3, 20/1000)
 
     # tanEst = TannierEstimator()
     # uniEst = UniformEstimator()
@@ -237,8 +238,9 @@ if __name__ == "__main__":
         #     print("   ", k, ":", cycles[str(k)])
         #
         n, k = gammaEst.predict_by_db(graph.d(), graph.b())
+        n2, k2 = corGammaEst.predict_by_db(graph.d(), graph.b())
 
-        print(graph.d(), graph.b(), graph.d() / graph.b(), k)
+        print(graph.d(), graph.b(), graph.d() / graph.b(), k, k2)
         # x = 2 * k / n
         # i_cur_dist = int(round(x * 100))
         # cur_dist = cms_dist[i_cur_dist]

@@ -11,7 +11,7 @@ from collections import defaultdict
 from scipy.stats import gamma
 
 X_MIN = 0
-X_MAX = 1.2
+X_MAX = 3
 X_STEP = 0.01
 N = 1000
 xs = np.arange(X_MIN, X_MAX, X_STEP)
@@ -37,7 +37,7 @@ def run_fix_x_diff_n(tries, workers):
     return dict(ns)
 
 
-def run(tries, workers, chr):
+def run(tries, workers, a):
     # ns = defaultdict(lambda: [])
     ys = [[] for _ in xs]
 
@@ -45,12 +45,11 @@ def run(tries, workers, chr):
         print(i, "of", int(tries / workers), ";", round(i / tries * workers * 100, 1), "%", datetime.now())
         # chrs = random.randint(10, 30)
         # g = GenomeGraph(N, chr)
-        a = 0.3
-        dist = gamma.rvs(a, scale=1 / a, size=N)
-        print(sum(dist))
+        chr = 20
+        dist = gamma.rvs(a, size=(N + chr))
         dist /= sum(dist)
-        print(sum(dist))
-        g = DirichletBPGraph(N, dist)
+        g = GenomeGraph(N, chr, dist)
+        # g = DirichletBPGraph(N, dist)
         # print(g.count_cycles())
         breaks = 0
 
@@ -59,9 +58,10 @@ def run(tries, workers, chr):
             #     print("cur x:", x)
             while breaks <= int(round(x * N / 2)):
                 # g.do_k2_break()
-                g.do_k_break()
+                g.do_k2_break()
                 breaks += 1
-            ys[x_index].append([N, breaks, dict(g.count_cycles())])
+            # ys[x_index].append([N, breaks, dict(g.count_cycles())])
+            ys[x_index].append([N, breaks, g.make_bg_real_data_graph().d(), g.make_bg_real_data_graph().b()])
     print(ys)
     return ys
 
@@ -86,7 +86,7 @@ def run_line(tries, workers, chr):
     return ys
 
 
-def run_line_nikita(tries, workers, chr, n):
+def run_line_nikita(tries, workers, chr, n, a):
     res = []
 
     def append_to_res():
@@ -97,7 +97,14 @@ def run_line_nikita(tries, workers, chr, n):
 
     for i in range(int(tries / workers)):
         print(i, "of", int(tries / workers), ";", round(i / tries * workers * 100, 1), "%", datetime.now())
-        g = GenomeGraph(n, chr)
+        if chr == 0:
+            dist = gamma.rvs(a, size=n)
+            dist /= sum(dist)
+            g = DirichletBPGraph(n, dist)
+        else:
+            dist = gamma.rvs(a, size=(n + chrs))
+            dist /= sum(dist)
+            g = GenomeGraph(n, chr)
         breaks = 0
 
         for x_index, x in enumerate(xs):
@@ -111,13 +118,25 @@ def run_line_nikita(tries, workers, chr, n):
     return res
 
 
-def measure_c(tries, workers, chr, n):
+def measure_c_nikita(tries, workers, chr, n, a=1):
     pool = mp.Pool()
-    results = [pool.apply_async(run_line_nikita, [tries, workers, chr, n]) for _ in range(workers)]
+    results = [pool.apply_async(run_line_nikita, [tries, workers, chr, n, a]) for _ in range(workers)]
 
     res = []
     for r in results:
         res.extend(r.get())
+
+    return res
+
+
+def measure_c(tries, workers, a=1):
+    pool = mp.Pool()
+    results = [pool.apply_async(run, [tries, workers, a]) for _ in range(workers)]
+
+    res = [[] for _ in range(len(xs))]
+    for r in results:
+        for i, r in enumerate(r.get()):
+            res[i].extend(r)
 
     print("res", res)
 
@@ -128,17 +147,23 @@ if __name__ == "__main__":
     TRIES = 100
     WORKERS = 4
 
-    chrs = [10, 20]
+    chrs = [1]
     ns = [1000]
-    file_name = "sim_data2/dir_dist_n%d_runs%d_chr%d.csv"
+    as_ = np.arange(0.3, 0.4, 0.2)
+    # file_name = "sim_data2/diff_a_n%d_runs%d_chr%d_a%s.csv"
+    file_name = "sim_data/lin_03%s_chr20_data_N%d_%d.txt"
     columns = ["n", "k", "chr", "d", "b", "p_odd", "p_even"] + ["p_" + str(m) for m in range(p_m_max)] + ["c"] + [
         "c_" + str(m) for m in range(1, c_m_max)]
 
-    for n in ns:
-        for chr in chrs:
-            print("<Run with n=%d and chr=%d>" % (n, chr))
-            measured_c = measure_c(TRIES, WORKERS, chr, n)
-            with open(file_name % (n, TRIES, chr), 'w+') as f:
-                print(','.join(columns), file=f)
-                for r in measured_c:
-                    print(','.join(map(str, r)), file=f)
+    for n, chr in zip(ns, chrs):
+        # for chr in chrs:
+        for a in as_:
+            print("<Run with n=%d and chr=%d and a=%s>" % (n, chr, "0" + str(round(a, 1))[-1:]))
+            measured_c = measure_c(TRIES, WORKERS, a)
+            # with open(file_name % (n, TRIES, chr, "0" + str(round(a,1))[-1:]), 'w+') as f:
+            print("WRITE")
+            with open(file_name % ("0" + str(round(a, 1))[-1:], n, TRIES), 'w+') as f:
+                f.write(json.dumps(measured_c))
+            #     print(','.join(columns), file=f)
+            #     for r in measured_c:
+            #         print(','.join(map(str, r)), file=f)

@@ -5,7 +5,7 @@ import numpy as np
 import json
 from bisect import bisect_left
 from src.estimators import TannierEstimator, DirichletEstimator, DataEstimator, UniformEstimator, FirstCmsDirEstimator, \
-    CmBFunctionGammaEstimator, GammaEstimator
+    CmBFunctionGammaEstimator, GammaEstimator, CorrectedGammaEstimator
 from src.cmrecur import cm4, b_gamma, d_gamma, d_gamma_b
 # from estimators import TannierEstimator, DirichletEstimator, DataEstimator, UniformEstimator, FirstCmsDirEstimator
 # from src.regression_estimators import SGDRegressorXEstimator, collect_cm_n_from_cycles, collect_cm_n_data
@@ -27,86 +27,15 @@ lite_dirichlet_file_smallN = "sim_data/dirichlet_data_random_smallN_200.txt"
 slite_dirichlet_file = "sim_data/dirichlet_data_randomN_20.txt"
 lite_gamma09_file = "sim_data/gamma09_data_N1000_200.txt"
 lite_gamma03_file = "sim_data/gamma03_data_N1000_200.txt"
-db_genome_file = "sim_data/dir_genome_data_N1000_104_%dс.txt"
+lite_gamma_file = "sim_data/gamma0%d_data_N1000_200.txt"
+db_genome_file = "sim_data/dir_genome_data_N1000_200_%dс.txt"
+db_genome_file2 = "sim_data/dir_genome_data_N1000_104_%dс.txt"
+like_real_file = "sim_data/lin_0303_chr20_data_N1000_100.txt"
 
 cycles_breakdowns_lite_file = "sim_data/dirichlet_breakdown_of_a_cycle20.txt"
 cycles_breakdowns_file = "sim_data/dirichlet_breakdown_of_a_cycle200.txt"
 
 test_file = "sim_data/dirichlet_1000_20.txt"
-
-bs = [-3.2530401983255075e-14, -1.5595164049031496e-15, -3.6741443221188774e-15, -2.5673907444456745e-15,
-      -2.237793284010081e-15, -2.1337098754514727e-15, -4.0245584642661925e-15, -5.898059818321144e-16,
-      -1.1449174941446927e-15, 5.134781488891349e-16, -2.0469737016526324e-15, 1.949829186997931e-15,
-      2.275957200481571e-15, -2.0539125955565396e-15, 3.7470027081099033e-16, -1.923076923150477e-05,
-      -3.8461538462496064e-05, -5.769230769405581e-05, -7.692307692404844e-05, -0.00010576923077097947,
-      -0.00010576923077097947, -0.00010576923077032721, -0.00010576923076999415, -0.00012500000000020828,
-      -0.000163461538463537, -0.00021153846154068218, -0.0002115384615427916, -0.0002307692307723396,
-      -0.00023076923076947704, -0.000269230769234572, -0.0003076923076982199, -0.00031730769231271634,
-      -0.00035576923077536505, -0.00038461538462007563, -0.0004038461538527323, -0.0004807692307718402,
-      -0.0005192307692404841, -0.0005480769230868601, -0.0005865384615470662, -0.000605769230779945,
-      -0.0006442307692506983, -0.0006634615384841583, -0.0007211538461765787, -0.0007692307692631606,
-      -0.0008365384615819552, -0.0009326923077676649, -0.0009519230770280771, -0.0011057692307695557,
-      -0.001192307692308026, -0.0012980769230771462, -0.0014326828890968498, -0.0016614929937688412,
-      -0.0018247941595849653, -0.0019169116409855412, -0.0021251969446780036, -0.0021953278256884217,
-      -0.0024120035166312454, -0.0025315722023798166, -0.0025896664247795236, -0.0027473069019856087,
-      -0.0029254738606629585, -0.002997375877238758, -0.0030288001795809017, -0.003085774606389877,
-      -0.0033210791922656194, -0.00344537618230441, -0.0034194965678408453, -0.0034448058990550084,
-      -0.003347802941037528, -0.003195489391350666, -0.0033818950617587706, -0.0034069121842636185,
-      -0.0033378232939065187, -0.0034439071606780546, -0.0032733534141485138, -0.0033936395963520957,
-      -0.0032857551608007395, -0.003180733870073911, -0.003098109900538129, -0.003317066817602347, -0.00322258705428118,
-      -0.0032958326092217475, -0.003306449225044136, -0.0031779478511974445, -0.0032953941234422075,
-      -0.003293867365184418, -0.003394996773411834, -0.003493497839696377, -0.0034744782134141627,
-      -0.003626897601421265, -0.003643566300615658, -0.003601913115675313, -0.0037332149543766735,
-      -0.0037206727022684313, -0.0039013333643764803, -0.003891089232071131, -0.004142369449897935,
-      -0.004136447050185037, -0.004104592216684543, -0.004210764077627157, -0.00412853332931511, -0.004300697222794422,
-      -0.004362356139003132, -0.0042178363629417895, -0.004406074437122355, -0.004312155397990865,
-      -0.004205774122542862, -0.0039335428587817765, -0.0041112987832372305, -0.004297180813665905,
-      -0.004164706443729739, -0.004406617828209647, -0.004119497116841296, -0.003938381804105019,
-      -0.0038636877857081376, -0.0037131324279481848, -0.003689042263980217, -0.0036668145465574833,
-      -0.0033006865022673264, -0.0034179661324171915, -0.003307493790414472, -0.003469642227154097,
-      -0.0036163166420477085, -0.003661339354472543, -0.0037396806334295293, -0.0036978433771641898,
-      -0.003766940103794746, -0.0038223084063109835, -0.0038354341023016454, -0.003893182078018009,
-      -0.0038708732879904712, -0.0037303617560234784, -0.0038469577311214063, -0.003865196998132343,
-      -0.003602687112049441, -0.003607799786611395, -0.003582747898466054, -0.003585508645258692,
-      -0.0035298236267038057, -0.0034544296946439164, -0.003609597495083858, -0.003389823855890187,
-      -0.0033819087893705215, -0.003403417109547472, -0.0033872938949152972, -0.0034010953350068294,
-      -0.003281604191521401, -0.0034425221816416847, -0.0033552392834990544, -0.0033084491945109947,
-      -0.0033793032502572274, -0.003500718188497368, -0.00352868391212622, -0.0034730327895330115,
-      -0.003497439723101468, -0.003659806832009197, -0.0038064942877819455, -0.003880012687187526,
-      -0.003938253885581531, -0.004173721829119491, -0.004057763385908783, -0.0036097991760025735,
-      -0.0035992467080385704, -0.003651289668614372, -0.00341033951826722, -0.003338112471015534,
-      -0.0031367064728277457, -0.0032582166405794384, -0.0032316583922856693, -0.0031148905763002293,
-      -0.0032350001379735788, -0.0030536867853061395, -0.0031288014997638953, -0.0033066542769056542,
-      -0.003318168019907002, -0.003201955509034779, -0.0033620117548576437, -0.0035677140428156404,
-      -0.0036557450538373284, -0.003770477522548139, -0.0037101281253562354, -0.0037729113677305763,
-      -0.004007039624455823, -0.004028030871403689, -0.004239862570338756, -0.004036894783714587,
-      -0.0040634855963851075, -0.00393514499810404, -0.004007765688353981, -0.0038007000343130777,
-      -0.003939067797316734, -0.003999910012491676, -0.003973727483077301, -0.003966403889470504,
-      -0.0037665135129971994, -0.003691475112889961, -0.0036548596487935518, -0.0035990826180342427,
-      -0.0038800194692195675, -0.0039208517844731006, -0.003779374999553458, -0.0036672292003366025,
-      -0.0037287453033641917, -0.0038005604666048274, -0.003940464268937367, -0.003956244889101217,
-      -0.003674919899532539, -0.003702351675088671, -0.0036828628012861788, -0.003193466866673223,
-      -0.0034554069470626456, -0.0035072325508333354, -0.0035221073330202754, -0.0034135783474424685,
-      -0.003729806836847412, -0.0035189528688170904, -0.0036176368943254267, -0.003843247459746333,
-      -0.0038304796877163816, -0.004021719911440725, -0.003888199539415427, -0.004035764304387137,
-      -0.003897181973497735, -0.004059065442705649, -0.004050334292380006, -0.004274907111816263, -0.004242470746491369,
-      -0.003962711083448714, -0.004147236144089623, -0.004161499176631141, -0.004399798671356129, -0.004573739914028088,
-      -0.004260311923631915, -0.0042768874667625904, -0.004258146148658649, -0.004156074427035005,
-      -0.0041438117795182345, -0.004192573793880327, -0.004254344488806007, -0.004281107095943218,
-      -0.004292151764786654, -0.0040856140365619084, -0.004267321010188707, -0.004337329815693867,
-      -0.004343773779733231, -0.004132862437026404, -0.0038873430800630774, -0.0038861161547324857,
-      -0.0038215429634697764, -0.003953291829705876, -0.003973722723695791, -0.003844425734281855,
-      -0.0037673749251065478, -0.0036464668060048463, -0.0038182895734709195, -0.003927123120167862,
-      -0.003905708275023343, -0.003898323735486747, -0.0040204014611502446, -0.004252757451811939,
-      -0.0042108225253995706, -0.004298488480343183, -0.004246569642412518, -0.003930110565246798,
-      -0.004185693730763381, -0.004292208787836004, -0.004326621790892186, -0.004394744438320577, -0.004342772541552612,
-      -0.004295747570909022, -0.004196018201329568, -0.00449554801182423, -0.004261684723249623, -0.004388698666746708,
-      -0.004251628944362528, -0.0041101295895480455, -0.004137315727545726, -0.004015917427984009,
-      -0.0041305874034999555, -0.003990977939022752, -0.004260587051738313, -0.00398752772784838,
-      -0.0042679894669504425, -0.004409699826283423, -0.003989616734135413, -0.004046236187755998,
-      -0.004089207643481784, -0.003945487868319792, -0.00399972556065937, -0.003944261355513438, -0.00368297398352297,
-      -0.0038216648914093237, -0.003956519785425793, -0.003962570174719003, -0.003936001068465629,
-      -0.004126843288306021, -0.004131281165323052, -0.004083960236933916, -0.004138756482181637, -0.004113007095412163]
 
 
 class Drawer:
@@ -134,7 +63,7 @@ class Drawer:
     def reset_color(self):
         self.current_color = 0
 
-    def draw_data(self, data, data_function, with_interval=True, label=None, linewidth=1.0):
+    def draw_data(self, data, data_function, with_interval=False, label=None, linewidth=1.0, inc_color=True):
         actual_func = lambda p: data_function(*p)
         ys = []
         for ds in data[self.min_index:self.max_index]:
@@ -144,7 +73,7 @@ class Drawer:
             ys.append(sorted(tmp))
 
         mean = list(map(lambda y: np.mean(y), ys))
-        print("\n".join(map(lambda x: ("%.10f" % x).replace(".", ","), mean)))
+        # print("\n".join(map(lambda x: ("%.10f" % x).replace(".", ","), mean)))
         # open("data/dirichlet_d_error.txt", 'w').write(json.dumps(mean))
         plt.plot(self.draw_xs, mean, color=self.colors[self.current_color], label=label, linewidth=linewidth)
         print("sum of ys ** 2:", sum(map(lambda x: x ** 2, mean)))
@@ -154,8 +83,8 @@ class Drawer:
                 low = list(map(lambda y: y[-int(len(y) * interval)], ys))
                 upper = list(map(lambda y: y[int(len(y) * interval)], ys))
                 plt.fill_between(self.draw_xs, low, upper, color=self.colors[self.current_color], alpha=0.125)
-
-        self.increase_color()
+        if inc_color:
+            self.increase_color()
 
     def draw_interval(self, data, data_function):
         actual_func = lambda p: data_function(*p)
@@ -175,8 +104,7 @@ class Drawer:
         plt.scatter(xs, ys, color=self.colors[self.current_color], label=legend, marker=marker, s=25)
 
     def draw_function(self, func, label=None, linewidth=1.0, linestyle='-'):
-        vectorized = np.vectorize(func)
-        plt.plot(self.draw_xs, vectorized(self.draw_xs), color=self.colors[self.current_color], label=label,
+        plt.plot(self.draw_xs, list(map(func, self.draw_xs)), color=self.colors[self.current_color], label=label,
                  linewidth=linewidth, linestyle=linestyle)
         self.increase_color()
 
@@ -256,18 +184,14 @@ b_over_n = lambda t: lambda x: 1 - c_m_gamma(t, 1)(x)
 cms_sum = lambda t, cms: lambda x: np.sum([c_m_gamma(t, m)(x) * m for m in range(2, cms)]) / b_over_n(t)(x)
 get_cms_from_cycles = lambda cms: lambda n, k, c: np.sum([c.get(str(m), 0) / n * m for m in range(2, cms)])
 
-
-def smth(x):
-    return bs[int((x) * 100)]
-
-
+# baseline = lambda x: 0 if x <= 0.5 else -0.008 + x / 1000
 if __name__ == "__main__":
     # classic_data = json.loads(open(classic_file, 'r').read())
     # lite_classic_data = json.loads(open(lite_classic_file, 'r').read())
     # classic_est = DataEstimator(classic_data)
     sns.set(style="whitegrid", font="serif", font_scale=1.2)
 
-    dirichlet_data = json.loads(open(dirichlet_file, 'r').read())
+    # dirichlet_data = json.loads(open(dirichlet_file, 'r').read())
     lite_dirichlet_data = json.loads(open(lite_dirichlet_file, 'r').read())
     lite_genome_data = json.loads(open(lite_genome_file % 100, 'r').read())
     slite_genome_data_100 = json.loads(open(slite_genome_file_100, 'r').read())
@@ -280,27 +204,34 @@ if __name__ == "__main__":
     # lite_dirichlet_data_smallN = json.loads(open(lite_dirichlet_file_smallN, 'r').read())
     # test_data = json.loads(open(test_file, 'r').read())
     db_genone_data1 = json.loads(open(db_genome_file % 1, 'r').read())
+    db_genone_data1_2 = json.loads(open(db_genome_file2 % 1, 'r').read())
     db_genone_data5 = json.loads(open(db_genome_file % 5, 'r').read())
     db_genone_data10 = json.loads(open(db_genome_file % 10, 'r').read())
+    db_genone_data20 = json.loads(open(db_genome_file % 20, 'r').read())
     db_genone_data30 = json.loads(open(db_genome_file % 30, 'r').read())
-    db_genone_data45 = json.loads(open(db_genome_file % 45, 'r').read())
+    db_genone_data50 = json.loads(open(db_genome_file % 50, 'r').read())
     db_genone_data100 = json.loads(open(db_genome_file % 100, 'r').read())
+
+    like_real_data = json.loads(open(like_real_file, 'r').read())
 
     # data_dirichlet_est = DataEstimator(dirichlet_data)
     # data_classic_est = DataEstimator(classic_data)
     dirichlet_est = DirichletEstimator()
-    test_dirichlet_est = FirstCmsDirEstimator(10)
+    test_est = CorrectedGammaEstimator(0.3, 20/1000)
     uniform_est = UniformEstimator()
     tannier_est = TannierEstimator()
-    gamma_est = GammaEstimator(0.3, 30)
+    gamma_est = GammaEstimator(0.3)
     print("<read>")
     plt.rc('text', usetex=True)
 
-    # drawer = Drawer()
     # drawer.draw_function(d_over_b_dir, "d/b analytical")
     # drawer.draw_data(dirichlet_data, d_over_b, False, "d/b empirical")
     # drawer = Drawer(0.3, 1.5)
-    drawer = Drawer(0.1, 3)
+    drawer = Drawer(0.5, 1.5)
+
+    # drawer.draw_boxplot_data(db_genone_data1, db_est_error(test_est))
+    gamma_data = json.loads(open(lite_gamma_file % 7, 'r').read())
+    drawer.draw_boxplot_data(like_real_data, db_est_error(test_est))
 
     # drawer.draw_function(d_over_n_dir, label="analytcs")
 
@@ -308,23 +239,61 @@ if __name__ == "__main__":
     #                  lambda n, k, c: d_distance(n, k, c) / b_distance(n, k, c) - d_gamma_b(0.3, 50)(2 * k / n),
     #                  with_interval=False)
 
-    drawer.draw_data(dirichlet_data,
-                     lambda n, k, c: d_distance(n, k, c) / b_distance(n, k, c) - d_over_b_dir(2 * k / n),
-                     with_interval=False)
+    # drawer.draw_data(dirichlet_data,
+    #                  lambda n, k, c: d_distance(n, k, c) / b_distance(n, k, c) - d_over_b_dir(2 * k / n), label="dir data")
 
-    drawer.draw_data(db_genone_data1, lambda n, k, d, b: (d / n - d_over_n_dir(2 * k / n)) / 1, with_interval=False,
-                     label="1 chr")
+    #
+    # drawer.draw_data(db_genone_data1, lambda n, k, d, b: (d / n - d_over_n_dir(2 * k / n)) / 1, with_interval=False,
+    #                  label="1 chr")
+    #
 
-    # drawer.draw_data(db_genone_data5, lambda n, k, d, b: (d / n - d_over_n_dir(2 * k / n)- smth(2 * k / n)) / 5, with_interval=False,
+    # baseline = lambda x: 0 if x <= 0.5 else -0.009 + x / 1000
+    # for i in range(1, 10):
+    #     print(("0.%d" % i))
+    #     gamma_data = json.loads(open(lite_gamma_file % i, 'r').read())
+    #     drawer.draw_data(gamma_data,lambda n, k, c: d_distance(n, k, c) / b_distance(n, k, c),
+    #                      label=("0.%d" % i), inc_color=False)
+    #     drawer.draw_function(lambda x: d_gamma_b(i/10, 50)(x), linestyle="--")
+
+
+    # drawer.draw_data(db_genone_data5, lambda n, k, d, b: (d / n - d_over_n_dir(2 * k / n)- baseline(2 * k / n)) / 5,
     #                  label="5 chr")
-    # drawer.draw_data(db_genone_data10, lambda n, k, d, b: (d / n - d_over_n_dir(2 * k / n)- smth(2 * k / n)) / 10, with_interval=False,
+    # drawer.draw_data(db_genone_data10, lambda n, k, d, b: (d / n - d_over_n_dir(2 * k / n)- baseline(2 * k / n)) / 10,
     #                  label="10 chr")
-    # drawer.draw_data(db_genone_data30, lambda n, k, d, b: (d / n - d_over_n_dir(2 * k / n) - smth(2 * k / n)) / 30,
-    #                  with_interval=False, label="30 chr")
-    # drawer.draw_data(db_genone_data45, lambda n, k, d, b: (d / n - d_over_n_dir(2 * k / n) - smth(2 * k / n)) / 45,
-    #                  with_interval=False, label="45 chr")
-    # drawer.draw_data(db_genone_data100, lambda n, k, d, b: (d / n - d_over_n_dir(2 * k / n)- smth(2 * k / n)) / 100,
-    #                  with_interval=False, label="100 chr")
+    # drawer.draw_data(db_genone_data30, lambda n, k, d, b: (d / n - d_over_n_dir(2 * k / n) - baseline(2 * k / n)) / 30,
+    #                  label="30 chr")
+    # drawer.draw_data(db_genone_data45, lambda n, k, d, b: (d / n - d_over_n_dir(2 * k / n) - baseline(2 * k / n)) / 45,
+    #                  label="45 chr")
+    # drawer.draw_data(db_genone_data100, lambda n, k, d, b: (d / n - d_over_n_dir(2 * k / n)- baseline(2 * k / n)) / 100,
+    #                  label="100 chr")
+    #
+    # drawer.draw_data(db_genone_data10, lambda n, k, d, b: (d / n - d_over_n_dir(2 * k / n)),
+    #                  with_interval=False, label="10 chr")
+    #
+    # drawer.draw_data(db_genone_data50, lambda n, k, d, b: (d / n - d_over_n_dir(2 * k / n)),
+    #                  with_interval=False, label="50 chr")
+
+    # drawer.draw_data(db_genone_data1, lambda n, k, d, b: (d / b - d_over_b_dir(2 * k / n) - baseline(2 * k / n)) / 1,
+    #                  label="1 chr d/b")
+    #
+    # drawer.draw_data(db_genone_data5, lambda n, k, d, b: (d / b - d_over_b_dir(2 * k / n) - baseline(2 * k / n)) / 5,
+    #                  with_interval=False, label="5 chr d/b")
+    #
+    # drawer.draw_data(db_genone_data10, lambda n, k, d, b: (d / b - d_over_b_dir(2 * k / n) - baseline(2 * k / n)),
+    #                  with_interval=False, label="10 chr d/b", inc_color=False)
+    # drawer.draw_function(addings(10/1000), linestyle="--")
+    #
+    # drawer.draw_data(db_genone_data20, lambda n, k, d, b: (d / b - d_over_b_dir(2 * k / n) - baseline(2 * k / n)),
+    #                  with_interval=False, label="20 chr d/b", inc_color=False)
+    # drawer.draw_function(addings(20/1000), linestyle="--")
+    #
+    # drawer.draw_data(db_genone_data30, lambda n, k, d, b: (d / b - d_over_b_dir(2 * k / n) - baseline(2 * k / n)),
+    #                  with_interval=False, label="30 chr d/b", inc_color=False)
+    # drawer.draw_function(addings(30/1000), linestyle="--")
+    #
+    # drawer.draw_data(db_genone_data50, lambda n, k, d, b: (d / b - d_over_b_dir(2 * k / n) - baseline(2 * k / n)),
+    #                  with_interval=False, label="50 chr d/b", inc_color=False)
+    # drawer.draw_function(addings(50/1000), linestyle="--")
 
     # drawer.draw_boxplot_data(db_genone_data, db_est_error(dirichlet_est))
 

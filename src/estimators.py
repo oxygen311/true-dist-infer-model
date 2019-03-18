@@ -7,7 +7,7 @@ from scipy.special import hyp2f1
 import math
 import json
 from scipy.special import gamma
-from src.cmrecur import b_gamma, d_gamma
+from src.cmrecur import b_gamma, d_gamma, d_gamma_b
 
 
 # predict value of x or y relying on certain data
@@ -196,19 +196,32 @@ class DirichletEstimator(DBFunctionEstimator):
         return x / (1 + x)
 
 
-class CorrectedDirichletEstimator(DirichletEstimator):
+addings = lambda chr_n: lambda x: (-0.33 + ((x - 0.4) ** (-14 / 11)) * 5 / 100) * chr_n
+
+
+class CorrectedGammaEstimator(GammaEstimator):
+    def __init__(self, t, chr_n=0, mx=50):
+        super().__init__(t, mx)
+        self.chr_n = chr_n
+
     def predict_by_db(self, d, b):
-        n, k = super().predict_by_db(d, b)
-        x = 2 * k / n
-        print(d)
+        d_over_b_corrected = lambda r: lambda x: d_gamma_b(self.t, self.mx)(x) - r \
+                                                 + (0 if x <= 0.5 else
+                                                    x/1000 - 0.0045
+                                                    + (- 0.0015 if self.chr_n > 0 else 0)
+                                                    + (- 0.002 if self.t <= 0.7 else 0)
+                                                    + (- 0.002 if self.t <= 0.5 else 0)
+                                                    + addings(self.chr_n)(x))
 
-        if x >= 0.5:
-            d += 1567/1e6 * n
+        # print(d, b, d_over_b_corrected(d / b)(1e-6), d_over_b_corrected(d / b)(3))
+        if d_over_b_corrected(d / b)(3) < 0:
+            x = 3
+        else:
+            x = optimize.bisect(d_over_b_corrected(d / b), 1e-6, 3, xtol=1e-4)
 
-        print(d)
-        return super().predict_by_db(d, b)
-
-
+        b_n = self.b_over_n(x)
+        n = b / b_n
+        return n, n * x / 2
 
     # def predict(self, cycles):
     #     # def d_over_n_with_n(n):
@@ -316,9 +329,9 @@ class MoretEstimator:
 
 if __name__ == "__main__":
     e1 = DirichletEstimator()
-    e2 = CorrectedDirichletEstimator()
+    # e2 = CorrectedDirichletEstimator()
     print(e1.predict_by_db(100, 120))
-    print(e2.predict_by_db(100, 120))
+    # print(e2.predict_by_db(100, 120))
 
 #     # dirichlet_data = json.loads(open("data/dirichlet_data_randomN_200.txt", 'r').read())
 #     # dataEst = DataEstimator(dirichlet_data)

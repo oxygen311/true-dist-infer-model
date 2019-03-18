@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 
 class GenomeGraph(nx.Graph):
-    def __init__(self, n, chrs):
+    def __init__(self, n, chrs, dist=None):
         super().__init__()
         self.n, self.chrs = n, chrs
         self.ns = list(range(n))
@@ -15,7 +15,7 @@ class GenomeGraph(nx.Graph):
         self.add_nodes_from([str(i) + 't' for i in self.ns])
         [self.add_edge(str(i) + "h", str(i) + "t", label='block') for i in self.ns]
 
-        ws = [random.expovariate(1) for _ in range(n + chrs)]
+        ws = [random.expovariate(1) for _ in range(n + chrs)] if dist is None else dist
         i = 0
         for xs in np.array_split(self.ns, chrs):
             self.add_edge(str(xs[0]) + 'h', 'telomere', label='adj-red', weight=ws[i] / sum(ws))
