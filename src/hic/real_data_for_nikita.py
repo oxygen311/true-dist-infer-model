@@ -31,6 +31,28 @@ bounds = [1, 2, 3, 4, 5, 7, 12, 14]
 res = "500Kbp"
 output_file_name = "graph_stats_%s" % res
 
+rbs = {
+    'HUC': {'hg19': 13, 'panTro4': 41},
+    'GAP': {'hg19': 46, 'panTro4': 74, 'ponAbe2': 17},
+    'CAT': {'hg19': 68, 'panTro4': 96, 'ponAbe2': 39, 'rheMac3': 122},
+    'SIM': {'hg19': 100, 'panTro4': 128, 'ponAbe2': 71, 'rheMac3': 154, 'calJac3': 110},
+    'EUA': 47,
+    'BOR': 9,
+    'EUT': 6
+}
+
+def process_rbs():
+    def get_dict(old_d, new_d):
+        dict = {}
+        diff = rbs[new_d]
+        for k, v in rbs[old_d].items():
+            dict[k] = v + diff
+        return dict
+
+    rbs['EUA'] = get_dict('SIM', 'EUA')
+    rbs['BOR'] = get_dict('EUA', 'BOR')
+    rbs['EUT'] = get_dict('BOR', 'EUT')
+
 
 def collect_graph_stats(g):
     cms = defaultdict(lambda: 0)
@@ -46,6 +68,8 @@ def collect_graph_stats(g):
 
 def main():
     resutls = []
+    process_rbs()
+
     for apcf, b in zip(apcfs, bounds[1:]):
         group = species[:b]
         df = parse_to_df(df_file % (apcf, res))
@@ -66,8 +90,9 @@ def main():
             g_apcf_sp = create_bg(df, bss, sp, allowed_blocks_sp_apcf)
             g_apcf_sp1_way2 = create_bg(df_apcf_sp, "APCF", sp)
 
-            resutls.append((apcf, sp, "way_1") + collect_graph_stats(g_apcf_sp))
-            resutls.append((apcf, sp, "way_2") + collect_graph_stats(g_apcf_sp1_way2))
+            real_b = rbs[apcf].get(sp, -1)
+            resutls.append((apcf, sp, "way_1", real_b) + collect_graph_stats(g_apcf_sp))
+            resutls.append((apcf, sp, "way_2", real_b) + collect_graph_stats(g_apcf_sp1_way2))
 
     with open(output_file_name, 'w+') as f:
         f.write(json.dumps(resutls))
