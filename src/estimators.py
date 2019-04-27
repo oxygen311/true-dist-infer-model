@@ -27,6 +27,22 @@ class DataValuer:
         return self.ys[min(i, len(self.xs) - 1)]
 
 
+class RangeDataValuer:
+    xs = np.arange(0, 3, 0.01)
+
+    def __init__(self, data, data_function):
+        self.data = data
+        self.actual_func = lambda p: data_function(*p)
+
+    def predict_arg(self, y, percentile):
+        # for ds in self.data:
+        #     for d in ds:
+        #         print(d)
+        ys = [(np.percentile([self.actual_func(d) for d in ds], percentile)) for ds in self.data]
+        i = bisect(ys, y)
+        return self.xs[min(i, len(self.xs) - 1)]
+
+
 get_b_from_cycles = lambda c: sum([int(k) * v for k, v in c.items()])
 get_d_from_cycles = lambda c: sum([(int(k) - 1) * v for k, v in c.items()])
 
@@ -156,6 +172,64 @@ class GammaEstimator(DBFunctionEstimator):
         return b_gamma(self.t)(x)
 
 
+class RangeGammaEstimator(GammaEstimator):
+    def __init__(self, t, data, percentile=5, mx=50, mode="cyclic"):
+        super().__init__(t, mx)
+        # self.d_over_b_valuer = RangeDataValuer(data, lambda n, _, c: (n - sum(c.values())) / (max(1e-6, n - c['1'])))
+        self.d_over_b_valuer = RangeDataValuer(data, lambda n, _, d, b: d / b) if mode == "linear" else \
+            RangeDataValuer(data, lambda n, _, c: (n - sum(c.values())) / (max(1e-6, n - c['1'])))
+        self.percentile = percentile
+
+    def predict_by_db(self, d, b, cur_percentile):
+        x = self.d_over_b_valuer.predict_arg(d / b, cur_percentile)
+
+        if x == 0:
+            return 0, 0
+        b_n = self.b_over_n(x)
+        n = b / b_n
+        return n, n * x / 2
+
+    def predict_min_by_db(self, d, b):
+        return self.predict_by_db(d, b, 100 - self.percentile)
+
+    def predict_k_min_by_db(self, d, b):
+        return self.predict_min_by_db(d, b)[1]
+
+    def predict_max_by_db(self, d, b):
+        return self.predict_by_db(d, b, self.percentile)
+
+    def predict_k_max_by_db(self, d, b):
+        return self.predict_max_by_db(d, b)[1]
+
+
+addings = lambda chr_n: lambda x: (-0.33 + ((x - 0.4) ** (-14 / 11)) * 5 / 100) * chr_n
+
+
+class CorrectedGammaEstimator(GammaEstimator):
+    def __init__(self, t, chr_n=0, mx=50):
+        super().__init__(t, mx)
+        self.chr_n = chr_n
+
+    def predict_by_db(self, d, b):
+        d_over_b_corrected = lambda r: lambda x: d_gamma_b(self.t, self.mx)(x) - r \
+                                                 + (0 if x <= 0.5 else  # chr / b * x / (1 + x)
+                                                    x / 1000 - 0.0045
+                                                    + (- 0.0015 if self.chr_n > 0 else 0)
+                                                    + (- 0.002 if self.t <= 0.7 else 0)
+                                                    + (- 0.002 if self.t <= 0.5 else 0)
+                                                    + addings(self.chr_n)(x))
+
+        # print(d, b, d_over_b_corrected(d / b)(1e-6), d_over_b_corrected(d / b)(3))
+        if d_over_b_corrected(d / b)(3) < 0:
+            x = 3
+        else:
+            x = optimize.bisect(d_over_b_corrected(d / b), 1e-6, 3, xtol=1e-4)
+
+        b_n = self.b_over_n(x)
+        n = b / b_n
+        return n, n * x / 2
+
+
 class CmBFunctionGammaEstimator:
     def __init__(self, t, cms=6):
         self.t = t
@@ -194,59 +268,6 @@ class DirichletEstimator(DBFunctionEstimator):
 
     def b_over_n(self, x):
         return x / (1 + x)
-
-
-addings = lambda chr_n: lambda x: (-0.33 + ((x - 0.4) ** (-14 / 11)) * 5 / 100) * chr_n
-
-
-class CorrectedGammaEstimator(GammaEstimator):
-    def __init__(self, t, chr_n=0, mx=50):
-        super().__init__(t, mx)
-        self.chr_n = chr_n
-
-    def predict_by_db(self, d, b):
-        d_over_b_corrected = lambda r: lambda x: d_gamma_b(self.t, self.mx)(x) - r \
-                                                 + (0 if x <= 0.5 else
-                                                    x/1000 - 0.0045
-                                                    + (- 0.0015 if self.chr_n > 0 else 0)
-                                                    + (- 0.002 if self.t <= 0.7 else 0)
-                                                    + (- 0.002 if self.t <= 0.5 else 0)
-                                                    + addings(self.chr_n)(x))
-
-        # print(d, b, d_over_b_corrected(d / b)(1e-6), d_over_b_corrected(d / b)(3))
-        if d_over_b_corrected(d / b)(3) < 0:
-            x = 3
-        else:
-            x = optimize.bisect(d_over_b_corrected(d / b), 1e-6, 3, xtol=1e-4)
-
-        b_n = self.b_over_n(x)
-        n = b / b_n
-        return n, n * x / 2
-
-    # def predict(self, cycles):
-    #     # def d_over_n_with_n(n):
-    #     #     def ret_func(x):
-    #     #         ret = 1 - (1 + x) ** 2 * (hyp2f1(-2 / 3, -1 / 3, 1 / 2, 27 * x / (4 * (1 + x) ** 3)) - 1) / (3 * x)
-    #     #         ret -= self.err[int(x * 100)] / math.sqrt(n) / 2
-    #     #         return ret
-    #     #
-    #     #     return ret_func
-    #
-    #     d_over_b = lambda r: lambda x: self.d_over_n(x) / self.b_over_n(x) - r
-    #
-    #     d = get_d_from_cycles(cycles)
-    #     b = get_b_from_cycles(cycles)
-    #
-    #     x = optimize.bisect(d_over_b(d / b), 1e-6, 3, xtol=1e-4)
-    #     n = b / self.b_over_n(x)
-    #
-    #     # new_d_over_n_func = d_over_n_with_n(n)
-    #     # new_d_over_b_func = lambda r: lambda x: new_d_over_n_func(x) / self.b_over_n(x) - r
-    #
-    #     # x2 = optimize.bisect(new_d_over_b_func(d / b), 1e-6, 3, xtol=1e-4)
-    #
-    #     # return n * (x + x2) / 2 / 2
-    #     return n, n * x / 2
 
 
 class UniformEstimator(DBFunctionEstimator):
@@ -328,9 +349,15 @@ class MoretEstimator:
 
 
 if __name__ == "__main__":
-    e1 = DirichletEstimator()
+    e1 = GammaEstimator(0.3)
+    data_file = "sim_data/gamma03_data_N1000_200.txt"
+    data = json.loads(open(data_file, 'r').read())
+
+    e2 = RangeGammaEstimator(0.3, data)
     # e2 = CorrectedDirichletEstimator()
     print(e1.predict_by_db(100, 120))
+    print(e2.predict_min_by_db(100, 120))
+    print(e2.predict_max_by_db(100, 120))
     # print(e2.predict_by_db(100, 120))
 
 #     # dirichlet_data = json.loads(open("data/dirichlet_data_randomN_200.txt", 'r').read())

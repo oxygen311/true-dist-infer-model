@@ -118,7 +118,8 @@ class RealDataGraph(nx.MultiGraph):
         for component in nx.connected_component_subgraphs(self):
             if len(component) > 2 or (len(component) == 2 and len(component.edges) == 1):
                 b += len(component) / 2
-            # b += math.ceil((len(component)) / 2 - 1)
+                # b += math.floor((len(component)) / 2 + 1)
+                # b += math.ceil((len(component)) / 2 - 1)
             # print(len(component), len(component.edges))
         return b
 

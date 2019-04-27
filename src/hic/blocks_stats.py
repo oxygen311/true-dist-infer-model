@@ -9,13 +9,14 @@ from src.hic.blocks_parser import remove_trivial_cycles_df, parse_to_df
 import scipy
 from scipy.stats.stats import pearsonr
 import sys
-
-
+from scipy.stats import chisquare
+import pylab
+import scipy.stats as stats
 
 blocks_lengths = lambda df: every_chr(df, lambda df_chr: [e - s for s, e in zip(df_chr['chr_beg'], df_chr['chr_end'])])
 
-
 every_chr = lambda df, chr_f: [r for chr in df['chr'].unique() for r in chr_f(df.loc[df['chr'] == chr])]
+
 
 def dist_between_blocks(df, with_begs=False):
     def chr_f(df):
@@ -28,6 +29,7 @@ def dist_between_blocks(df, with_begs=False):
             if r != len(ss):  # and ss[l] - e != 0:
                 ans.append(ss[r] - e)
         return ans
+
     return every_chr(df, chr_f)
 
 
@@ -46,10 +48,11 @@ def blocks_unique(df_sp):
 
 norm_and_sort = lambda xs: sorted(list(filter(lambda x: x != 0, map(lambda x: x * len(xs) * 0.3 / sum(xs), xs))))
 
+if __name__ == "__main__":
+    sns.set(style="whitegrid", font="serif", font_scale=1.2)
+    plt.rc('text', usetex=True)
 
-def main():
-    sns.set(style="whitegrid")
-    df = parse_to_df("real_data/EUT/300Kbp/SFs/Conserved.Segments")
+    df = parse_to_df("real_data/EUT/500Kbp/SFs/Conserved.Segments")
 
     or_sp = "hg19"
     sp = "mm10"
@@ -59,45 +62,50 @@ def main():
     print("Before removing trivial cycles:", len(df_sp))
     ls = dist_between_blocks(df_sp, True)
     print("len =", len(ls), "ls = ", sorted(ls))
-    # remove_trivial_cycles_df(df, df_sp, or_sp, sp)
+    remove_trivial_cycles_df(df, df_sp, or_sp, sp)
     print("After removing trivial cycles:", len(df_sp))
 
     ls = dist_between_blocks(df_sp, True)
     print("len =", len(ls), "ls = ", sorted(ls))
-    ls = norm_and_sort(ls)
-    # h = plt.hist(ls, bins=70, alpha=0.2, edgecolor='k', cumulative=False, normed=True)
 
-    ls_shifted = ls[1:] + ls[:1]
-    print(np.corrcoef(ls, ls_shifted))
-    print(pearsonr(ls, ls_shifted))
+    ls = np.array(list(sorted(filter(lambda l: l > 1, ls))))
+    ls = ls / sum(ls)
 
-    dist = getattr(scipy.stats, "gamma")
-    param = dist.fit(ls)
-    print("<params>", param)
+    # fig1, ax1 = plt.subplots()
+    # h = plt.hist(ls, bins=70, alpha=0.2, edgecolor='k', cumulative=False, normed=True, label="hist")
 
-    # ds = dist.rvs(*param[:-2], loc=param[-2], scale=param[-1], size=len(ls))
-    ds = dist.rvs(*param[:-2], size=len(ls), loc=param[-2])
-    # ds = norm_and_sort(ds)
+    # print(h)
 
-    print(ks_2samp(ds, ls))
-    print(kstest(ls, "gamma", [*param[:-2], param[-2]]))
+    dist = stats.gamma(a=1 / 3, loc=0, scale=3 / len(ls))
 
-    ds = dist.rvs(0.3, size=len(ls), loc=param[-2])
-    print(ks_2samp(ds, ls))
-    print(kstest(ls, "gamma", [0.3, param[-2]]))
+    # hf = (np.array(h[1][1:]) + np.array(h[1][:-1])) / 2
+    # print(h[0])
+    # print(dist.cdf(hf, 1 / 3, scale=1 / len(ls)))
 
-    ds = dist.rvs(0.4, size=len(ls), loc=param[-2])
-    print(ks_2samp(ds, ls))
-    print(kstest(ls, "gamma", [0.4, param[-2]]))
+    # xs = np.arange(h[1][0] + 1.5e-4, h[1][-1], 0.0001)
+    # plt.plot(xs, dist.pdf(xs), label=("pdf a=%f" % 0.33333333333))
 
-    # plt.plot(sorted(ls), range(len(ls)), label="blocks")
+    # plt.xlabel("Adjacency length", fontsize=14)
+    # plt.ylabel("Frequency", fontsize=14)
 
-    xs = np.arange(0.01, 4.4, 0.01)
-    plt.plot(xs, dist.pdf(xs, *param[:-2], loc=param[-2]), label=("pdf a=%f" % param[0]))
-    plt.plot(xs, dist.pdf(xs, 1/3, loc=param[-2]), label=("pdf a=%f" % 0.33))
-    plt.legend(frameon=True)
-    # plt.savefig("mm8_pdf.pdf")
-    # plt.show(legend_loc=4)
+    # measurements = h[0]
+    stats.probplot(ls, dist=dist, fit=False, plot=plt)
+    # plt.show()
+    plt.xlim(xmin=0, xmax=0.009)
+    # plt.xlim(xmin=0)
+    plt.ylim(ymin=0, ymax=0.009)
+    plt.subplots_adjust(left=0.13, bottom=0.11, top=0.98, right=0.96)
 
+    # plt.legend(loc=1, frameon=True, prop={'size': 14})
 
-# main()
+    plt.title("")
+    plt.savefig('mm10-fitting-qqplot.pdf')
+    plt.show()
+
+    # fig2, ax2 = plt.subplots()
+    # ax2.scatter(h[0], dist.cdf(hf, 1 / 3, scale=1 / len(ls)))
+    # ax2.plot([0, 1], [0, 1])
+
+    # plt.plot(xs, dist.pdf(xs, 1 / 3, scale=1 / len(ls)), label=("pdf a=%f" % 0.33333333333))
+    # plt.plot(xs, dist.pdf(xs, *param), label=("pdf a=%f" % 0.33333333333))
+    # fig2.legend(frameon=True)

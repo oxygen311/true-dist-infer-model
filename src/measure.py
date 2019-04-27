@@ -48,8 +48,8 @@ def run(tries, workers, a):
         chr = 20
         dist = gamma.rvs(a, size=(N + chr))
         dist /= sum(dist)
-        g = GenomeGraph(N, chr, dist)
-        # g = DirichletBPGraph(N, dist)
+        # g = GenomeGraph(N, chr, dist)
+        g = DirichletBPGraph(N, dist)
         # print(g.count_cycles())
         breaks = 0
 
@@ -149,11 +149,11 @@ if __name__ == "__main__":
 
     chrs = [1]
     ns = [1000]
-    as_ = np.arange(0.3, 0.4, 0.2)
+    as_ = [1/3]
     # file_name = "sim_data2/diff_a_n%d_runs%d_chr%d_a%s.csv"
-    file_name = "sim_data/lin_03%s_chr20_data_N%d_%d.txt"
-    columns = ["n", "k", "chr", "d", "b", "p_odd", "p_even"] + ["p_" + str(m) for m in range(p_m_max)] + ["c"] + [
-        "c_" + str(m) for m in range(1, c_m_max)]
+    file_name = "sim_data/gamma06_data_N%d_%d.txt"
+    # columns = ["n", "k", "chr", "d", "b", "p_odd", "p_even"] + ["p_" + str(m) for m in range(p_m_max)] + ["c"] + [
+    #     "c_" + str(m) for m in range(1, c_m_max)]
 
     for n, chr in zip(ns, chrs):
         # for chr in chrs:
@@ -162,7 +162,7 @@ if __name__ == "__main__":
             measured_c = measure_c(TRIES, WORKERS, a)
             # with open(file_name % (n, TRIES, chr, "0" + str(round(a,1))[-1:]), 'w+') as f:
             print("WRITE")
-            with open(file_name % ("0" + str(round(a, 1))[-1:], n, TRIES), 'w+') as f:
+            with open(file_name % (n, TRIES), 'w+') as f:
                 f.write(json.dumps(measured_c))
             #     print(','.join(columns), file=f)
             #     for r in measured_c:

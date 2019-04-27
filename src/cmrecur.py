@@ -5,8 +5,8 @@ from collections import defaultdict
 
 
 def cm(m, t, x):
-    return x ** (m - 1) * t ** ((t + 1) * m) / (x + t) ** (m * t + 2 * m - 2) * math.gamma(
-        m * t + 2 * m - 2) / math.gamma(m * t + m) / math.gamma(m + 1)
+    return x ** (m - 1) * t ** ((t + 1) * m) * math.gamma(m * t + 2 * m - 2) \
+           / math.gamma(m * t + m) / math.gamma(m + 1) / (x + t) ** (m * t + 2 * m - 2)
 
 
 def cm_nong(m, t, x):

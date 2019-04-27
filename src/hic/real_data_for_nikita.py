@@ -8,6 +8,7 @@ from src.real_data import RealDataGraph
 import sys
 import json
 import networkx as nx
+import matplotlib.pyplot as plt
 from collections import defaultdict
 
 sp_blocks_from_df = lambda df, sp: df.loc[df['species'] == sp]['block'].tolist()
@@ -68,6 +69,7 @@ def collect_graph_stats(g):
 
 def main():
     resutls = []
+    bs_us, bs_real = [], []
     process_rbs()
 
     for apcf, b in zip(apcfs, bounds[1:]):
@@ -76,6 +78,9 @@ def main():
 
         print(apcf, group)
         for sp in group:
+            real_b = rbs[apcf].get(sp, -1)
+            if real_b == -1:
+                continue
             allowed_blocks_sp_apcf = df['block'].unique().tolist()
             allowed_blocks_sp_apcf = list(filter(uniq_predicate((sp_blocks_from_df(df, sp))), allowed_blocks_sp_apcf))
 
@@ -84,15 +89,21 @@ def main():
             allowed_blocks_sp_apcf = list(filter(lambda b: bss_flat.count(b) == 1, allowed_blocks_sp_apcf))
 
             print(sp, apcf)
-
-            df_apcf_sp = parse_to_df(df_file_way2 % (apcf, res, sp))
+            # df_apcf_sp = parse_to_df(df_file_way2 % (apcf, res, sp))
 
             g_apcf_sp = create_bg(df, bss, sp, allowed_blocks_sp_apcf)
-            g_apcf_sp1_way2 = create_bg(df_apcf_sp, "APCF", sp)
+            # g_apcf_sp1_way2 = create_bg(df_apcf_sp, "APCF", sp)
 
-            real_b = rbs[apcf].get(sp, -1)
-            resutls.append((apcf, sp, "way_1", real_b) + collect_graph_stats(g_apcf_sp))
-            resutls.append((apcf, sp, "way_2", real_b) + collect_graph_stats(g_apcf_sp1_way2))
+            print(g_apcf_sp.b(), real_b)
+            bs_us.append(g_apcf_sp.b())
+            bs_real.append(real_b)
+
+            # resutls.append((apcf, sp, "way_1", real_b) + collect_graph_stats(g_apcf_sp))
+            # resutls.append((apcf, sp, "way_2", real_b) + collect_graph_stats(g_apcf_sp1_way2))
+
+    plt.scatter(bs_us, bs_real)
+    plt.plot(range(int(max(bs_us+bs_real))))
+    plt.show()
 
     with open(output_file_name, 'w+') as f:
         f.write(json.dumps(resutls))
